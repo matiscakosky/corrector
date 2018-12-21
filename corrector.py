@@ -8,7 +8,8 @@ from fetch import NoHayMensajesNuevos
 from fetch import revisar
 from fetch import responder
 from fetch import takeAttachment
-import pyCorrector
+from excepciones import ErrorEntrega
+from pyCorrector import pyCorrector
 import sys
 import os
 import re
@@ -39,10 +40,6 @@ PY_TPS=["TPPY1","TPPY2","TPPY3","TPPY4","LISTA"]
 CONSULTAS=["NOTAS"]
 
 
-class ErrorEntrega(Exception):
-  """Excepción para manejar errores del alumno a la hora de enviar al corrector.
-  """
-
 def escuchar():
     while(True):
         main()
@@ -66,27 +63,30 @@ def main():
         skel_dir = TP_DIR / tp_id
         print("llego una entrega bien")
         
-        #Extraigo el archivo descargado del alumno
-        zip_adjunto.extractall(skel_dir)
+        
         
         if tp_id in PY_TPS:
-            #Ejecuto el subproceso que corrige el TP
-            p=subprocess.run(["python","pruebas.py"],cwd=skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             
-            borrar_archivo_de_directorio(tp_id,skel_dir)
-            
-            output=p.stdout.decode("utf-8")
-            
-            #registrar_entrega(id_tp,alumno_id,p.returncode)
-            
-            #Si hay error lanzo el errorEntrega
-            if p.returncode != 0:
-                error = p.stderr.decode("utf-8")
-                raise ErrorEntrega(error + '\n' + output)
+            corrector = pyCorrector(id_tp=tp_id,skel_dir=skel_dir,zip_tp=zip_adjunto)
+            output=corrector.corregir()
+            """
+               p=subprocess.run(["python","pruebas.py"],cwd=skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 
+                borrar_archivo_de_directorio(tp_id,skel_dir)
+                
+                output=p.stdout.decode("utf-8")
+                
+                #registrar_entrega(id_tp,alumno_id,p.returncode)
+                
+                #Si hay error lanzo el errorEntrega
+                if p.returncode != 0:
+                    error = p.stderr.decode("utf-8")
+                    raise ErrorEntrega(error + '\n' + output)"""
+                    
             responder(msg, "Todo OK: {}".format(output))
             
         if tp_id in JAVA_TPS:
+            zip_adjunto.extractall(skel_dir)
             #Compilo archivo de alumno
             java_arch=tp_id.lower()+".java"
             p=subprocess.run(["javac",java_arch],cwd=skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE)

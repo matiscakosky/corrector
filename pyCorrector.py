@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 
+
+import subprocess
+import zipfile
+from excepciones import ErrorEntrega
+
+
 COMANDOS = ["python","pruebas.py"]
+
 
 class pyCorrector:
     """Corrector de python
@@ -17,11 +24,16 @@ class pyCorrector:
         self.nombre_archivo=""
         
     def corregir(self):
-        """Corrige el tp. si Esta aprobado devuelve un mensaje para enviar al alumnom, sino lanza excepcion"""
+        """Corrige el tp. si Esta aprobado devuelve un mensaje para enviar al alumno, sino lanza excepcion"""
+        
+        self.zip.extractall(self.skel_dir)
+        
+        
+        
         #Ejecuto el subproceso que corrige el TP
-        p=subprocess.run(COMANDOS,cwd=skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p=subprocess.run(COMANDOS,cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             
-        borrar_archivo_de_directorio(tp_id,skel_dir)
+        borrar_archivo_de_directorio(self.id_tp,self.skel_dir)
             
         output=p.stdout.decode("utf-8")
             
@@ -31,6 +43,8 @@ class pyCorrector:
         if p.returncode != 0:
            error = p.stderr.decode("utf-8")
            raise ErrorEntrega(error + '\n' + output)
+        
+        return output
            
            
            
