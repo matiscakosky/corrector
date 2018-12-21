@@ -21,7 +21,7 @@ class PyCorrector:
         self.id_tp = id_tp
         self.skel_dir= skel_dir
         self.zip=zip_tp
-        self.nombre_archivo=""
+        self.nombre_archivos= zip_tp.namelist()
         
     def corregir(self):
         """Corrige el tp. si Esta aprobado devuelve un mensaje para enviar al alumno, sino lanza excepcion"""
@@ -32,7 +32,7 @@ class PyCorrector:
         #Ejecuto el subproceso que corrige el TP
         p=subprocess.run(COMANDOS,cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             
-        borrar_archivo_de_directorio(self.id_tp,self.skel_dir)
+        borrar_archivo_de_directorio(self)
             
         output=p.stdout.decode("utf-8")
             
@@ -47,12 +47,9 @@ class PyCorrector:
            
            
            
-           
-def borrar_archivo_de_directorio(archivo,directorio):
+    
+def borrar_archivo_de_directorio(self):
     #Borro el archivo descargado del alumno inmediatamente ejecutado el subproceso de correccion
-    subprocess.run("del /f" + archivo,cwd=directorio,shell=True,stderr=subprocess.STDOUT)
-    subprocess.run("del /f" + archivo.lower(),cwd=directorio,shell=True,stderr=subprocess.STDOUT)
-    subprocess.run("del /f" + archivo.upper(),cwd=directorio,shell=True,stderr=subprocess.STDOUT)
-                
-            
+    for archivo in self.nombre_archivos:
+        subprocess.run(["del","/f",archivo],cwd=self.skel_dir,shell=True,stderr=subprocess.STDOUT)  
     
