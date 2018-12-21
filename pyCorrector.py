@@ -9,11 +9,11 @@ from excepciones import ErrorEntrega
 COMANDOS = ["python","pruebas.py"]
 
 
-class pyCorrector:
+class PyCorrector:
     """Corrector de python
     Objeto que dada una entrega en el directorio correspondiente ejecuta el subproceso de pruebas y corrige
     
-    Parametros: id del TP, path del TP
+    Parametros: id del TP, path del TP, zip del tp
     
     """
     
@@ -27,7 +27,6 @@ class pyCorrector:
         """Corrige el tp. si Esta aprobado devuelve un mensaje para enviar al alumno, sino lanza excepcion"""
         
         self.zip.extractall(self.skel_dir)
-        
         
         
         #Ejecuto el subproceso que corrige el TP
