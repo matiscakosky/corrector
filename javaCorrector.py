@@ -37,9 +37,10 @@ class JavaCorrector4:
         
         
         #Compilo archivos de alumno
-        java_arch=self.id_tp.lower()+".java"
-        p1=subprocess.run(["javac",java_arch],cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        output=p1.stdout.decode("utf-8")
+        for archivo in self.nombre_archivos:
+            p1=subprocess.run(["javac",archivo],cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            output=p1.stdout.decode("utf-8")
+            #Ojo puede no compilar ALGUNO tener encuenta las compilaciones de todos.
         
         #Compilo archivo de Tests
         path=JUNIT+";."
