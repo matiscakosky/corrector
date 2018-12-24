@@ -39,8 +39,7 @@ class JavaCorrector4:
         #Compilo archivos de alumno
         for archivo in self.nombre_archivos:
             p1=subprocess.run(["javac",archivo],cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            output=p1.stdout.decode("utf-8")
-            #Ojo puede no compilar ALGUNO tener encuenta las compilaciones de todos.
+            if p1.returncode: break     #Corta si encuentra un error.
         
         #Compilo archivo de Tests
         path=JUNIT+";."
@@ -55,8 +54,7 @@ class JavaCorrector4:
         
         if p1.returncode or p2.returncode or p3.returncode:
             error = "Compilation problems : - " + p1.stderr.decode("utf-8") + "Execution problems : - " + p3.stderr.decode("utf-8")
-            mensaje=""
-            raise ErrorEntrega(error + '\n' + output + mensaje)
+            raise ErrorEntrega(error + '\n' + output)
         
         return output
     
@@ -64,7 +62,9 @@ class JavaCorrector4:
         #Borro el archivo descargados
         for archivo in self.nombre_archivos:
             subprocess.run(["del","/f",archivo],cwd=self.skel_dir,shell=True,stderr=subprocess.STDOUT)
-        subprocess.run(["del","*.class"],cwd=self.skel_dir,shell=True,stderr=subprocess.STDOUT) 
+        subprocess.run(["del","*.class"],cwd=self.skel_dir,shell=True,stderr=subprocess.STDOUT)
+    
+
           
        
             
