@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
-
+import os
 import subprocess
 import zipfile
 from excepciones import ErrorEntrega
 
-JUNIT = r'C:\Users\Usuario\Desktop\ORT\Corrector\java\junit.jar'
-HAMCREST= r'C:\Users\Usuario\Desktop\ORT\Corrector\java\hamcrest.jar'
+JUNIT = os.environ["junit"]
+HAMCREST= os.environ["hamcrest"]
 
 PATH = JUNIT + ";" + HAMCREST + ";."
 EXECUTER="org.junit.runner.JUnitCore"

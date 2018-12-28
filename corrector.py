@@ -11,7 +11,6 @@ from fetch import takeAttachment
 from excepciones import ErrorEntrega
 from pyCorrector import PyCorrector
 from javaCorrector import JavaCorrector4
-import sys
 import os
 import re
 import os
@@ -19,10 +18,9 @@ import io
 import zipfile
 import pathlib
 from time import sleep
-import subprocess
 
 
-TP_DIR = pathlib.Path("C:\\Users\\Usuario\\Desktop\\ORT\\SKEL_TP")
+TP_DIR = pathlib.Path(os.environ["SKEL_DIR"])
 
 
 MAX_ZIP_SIZE = 1024 ** 2
