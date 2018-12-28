@@ -22,7 +22,7 @@ from time import sleep
 import subprocess
 
 
-TP_DIR = pathlib.Path("C:\\Users\\Usuario\\Desktop\\ORT\\SKEL_TP")
+TP_DIR = pathlib.Path(os.environ["SKEL_DIR"])
 
 
 MAX_ZIP_SIZE = 1024 ** 2
@@ -60,7 +60,7 @@ def main():
     
         zip_adjunto = convertir_a_zip(takeAttachment(msg))
         skel_dir = TP_DIR / id_tp
-        corrector=cargar_correctores(id_tp,skel_dir,zip_adjunto)
+        corrector=cargar_correctores(id_tp,str(skel_dir),zip_adjunto)
         print("llego una entrega bien")
 
         output=corrector.corregir()
