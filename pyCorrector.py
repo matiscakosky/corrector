@@ -49,7 +49,6 @@ class PyCorrector:
            
     
 def borrar_archivo_de_directorio(self):
-    #Borro el archivo descargado del alumno inmediatamente ejecutado el subproceso de correccion
     for archivo in self.nombre_archivos:
         subprocess.run(["del","/f",archivo],cwd=self.skel_dir,shell=True,stderr=subprocess.STDOUT)  
     
