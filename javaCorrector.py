@@ -64,9 +64,10 @@ class JavaCorrector4:
     
     def borrar_archivo_de_directorio(self):
         #Borro el archivo descargados
-        for archivo in self.nombre_archivos:
-            subprocess.run(["del","/f",archivo],cwd=self.skel_dir,shell=True,stderr=subprocess.STDOUT)
-        subprocess.run(["del","*.class"],cwd=self.skel_dir,shell=True,stderr=subprocess.STDOUT)
+        for filename in os.listdir(self.skel_dir):
+            if (filename in self.nombre_archivos) or filename.endswith(".class"):
+                os.remove( self.skel_dir + "/" + filename)
+        
     
 
           

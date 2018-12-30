@@ -49,6 +49,9 @@ class PyCorrector:
            
     
 def borrar_archivo_de_directorio(self):
-    for archivo in self.nombre_archivos:
-        subprocess.run(["del","/f",archivo],cwd=self.skel_dir,shell=True,stderr=subprocess.STDOUT)  
+        #Borro el archivo descargados
+        for filename in os.listdir(self.skel_dir):
+            if (filename in self.nombre_archivos):
+                os.remove( self.skel_dir + "/" + filename)
+ 
     
