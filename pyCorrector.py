@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-
+import os
 import subprocess
 import zipfile
 from excepciones import ErrorEntrega
@@ -51,7 +51,7 @@ class PyCorrector:
 def borrar_archivo_de_directorio(self):
         #Borro el archivo descargados
         for filename in os.listdir(self.skel_dir):
-            if (filename in self.nombre_archivos):
+            if (filename in self.nombre_archivos) or filename.endswith(".pyc"):
                 os.remove( self.skel_dir + "/" + filename)
  
     
