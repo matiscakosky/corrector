@@ -59,7 +59,8 @@ def main():
         skel_dir = TP_DIR / id_tp
         corrector=cargar_correctores(id_tp,str(skel_dir),zip_adjunto)
         print("llego una entrega bien")
-
+        
+        print(msg["Date"].datetime)
         output=corrector.corregir()
         responder(msg, "Todo OK: {}".format(output))
         
@@ -69,7 +70,7 @@ def main():
    
     except NoHayMensajesNuevos:
         print("No hay mensajes nuevos")
-        #sys.exit()
+        
     except ErrorEntrega as err:
         responder(msg, "ERROR: {}".format(err))
     except RuntimeError as err:
@@ -95,6 +96,9 @@ def convertir_a_zip(zip_bytes):
     except zipfile.BadZipFile:
         raise ErrorEntrega(ZIP_DANIADO)
 
+def checkear_vencimiento_tp(skel_dir, fechaEntrega):
+    return
+    
            
 def cargar_correctores(id_tp=None,skel_dir=None,zip_adjunto=None):
     if id_tp in PY_TPS:
