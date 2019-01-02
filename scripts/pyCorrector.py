@@ -7,7 +7,7 @@ from excepciones import ErrorEntrega
 
 
 COMANDOS = ["python","pruebas.py"]
-TIMEOUT = 120
+TIMEOUT = 5
 
 class PyCorrector:
     """Corrector de python
@@ -55,6 +55,8 @@ class PyCorrector:
 def borrar_archivo_de_directorio(self):
         #Borro el archivo descargados
         for filename in os.listdir(self.skel_dir):
+            if filename == "__pycache__":
+                os.rmdir(self.skel_dir + "/" + filename)
             if (filename in self.nombre_archivos) or filename.endswith(".pyc"):
                 os.remove( self.skel_dir + "/" + filename)
  
