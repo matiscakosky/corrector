@@ -16,7 +16,7 @@ class LimiteDeEntrega:
     
     def __init__(self, skel_dir, fechaAlumno):
         self.credential=skel_dir / "credentials.json"
-        self.fechaAlumno=fechaAlumno.replace(hour=0, minute=0, second=0)
+        self.fechaAlumno=fechaAlumno
         self.advertencia = False
     
     def checkear(self): #CAMBIAR ESTE NOMBRE HORRIBLE

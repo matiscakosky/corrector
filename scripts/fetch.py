@@ -102,9 +102,11 @@ def revisar_nuevos_no_leidos(service):
 
 def obtener_fecha_mensaje(date_str):
     """Recibe un string con la fecha en el formato dada por el objeto message. Devuelve un date time con la fecha del mensaje"""
+    REMOTE_TIME_ZONE_OFFSET = -3 * 60 * 60
     tupla = email.utils.parsedate(date_str)
     tiempo = time.mktime(tupla)
-    return datetime.datetime.fromtimestamp(tiempo)
+    print(datetime.datetime.fromtimestamp(tiempo + REMOTE_TIME_ZONE_OFFSET))
+    return datetime.datetime.fromtimestamp(tiempo + REMOTE_TIME_ZONE_OFFSET)
 
 def obtener_datos_de_mensaje(message):
     """
