@@ -105,7 +105,6 @@ def obtener_fecha_mensaje(date_str):
     REMOTE_TIME_ZONE_OFFSET = -3 * 60 * 60
     tupla = email.utils.parsedate(date_str)
     tiempo = time.mktime(tupla)
-    print(datetime.datetime.fromtimestamp(tiempo + REMOTE_TIME_ZONE_OFFSET))
     return datetime.datetime.fromtimestamp(tiempo + REMOTE_TIME_ZONE_OFFSET)
 
 def obtener_datos_de_mensaje(message):
