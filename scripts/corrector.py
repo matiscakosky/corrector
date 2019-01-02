@@ -74,8 +74,7 @@ def main():
 
    
     except NoHayMensajesNuevos:
-        print("No hay mensajes nuevos")
-        
+        print("No hay mensajes nuevos")  
     except TrabajoVencido as err:
         responder(msg, "TRABAJO VENCIDO: {}".format(err))
     except ErrorEntrega as err:
@@ -105,7 +104,7 @@ def convertir_a_zip(zip_bytes):
 
 def checkear_vencimiento_tp(skel_dir, fechaEntrega):
     limitador = LimiteDeEntrega(skel_dir,fechaEntrega)
-    limitador.checkear()
+    limitador.confirmar_horario_entrega()
     return limitador
     
            

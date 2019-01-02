@@ -17,7 +17,7 @@ def main():
     print("TP: Python TPPY 2 ")
     
     for i in range(4):
-        print()
+        print("")
     assert_devolver4()
     
     if test.fails != 0:

@@ -19,11 +19,12 @@ class LimiteDeEntrega:
         self.fechaAlumno=fechaAlumno
         self.advertencia = False
     
-    def checkear(self): #CAMBIAR ESTE NOMBRE HORRIBLE
+    def confirmar_horario_entrega(self):
         credential={}
         with open(self.credential) as handle:
             credential = json.load(handle)
         fechaVencimiento = datetime.strptime(credential["vencimiento"], '%d/%m/%Y')
+        fechaVencimiento = fechaVencimiento.replace(hour=23, minute=59, second=59)
         if self.fechaAlumno > fechaVencimiento:
             self.advertencia=True
             if not credential["corregible"]:
