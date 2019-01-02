@@ -10,7 +10,9 @@ from fetch import responder
 from fetch import takeAttachment
 from fetch import obtener_fecha_mensaje
 from excepciones import ErrorEntrega
+from excepciones import TrabajoVencido
 from pyCorrector import PyCorrector
+from vencimientos import LimiteDeEntrega
 from javaCorrector import JavaCorrector4
 import os
 import re
@@ -30,7 +32,7 @@ MAL_ASUNTO = "No se encontro ninguna entrega en el asunto del mail, por favor re
 MAL_TAMANIO = "Archivo supera el Limite permitido de tamaño de {} bytes".format(MAX_ZIP_SIZE)
 ARCHIVO_INEXISTENTE = "No se encontro ningun archivo comprimido de formato esperado adjunto en el mail enviado, por favor adjunte su entrega" 
 ZIP_DANIADO = "El archivo comprimido se encuentra dañado, no es tenido en cuenta. Por favor reenviar un archivo que funcione"
-
+MENSAJE_ADVERTENCIA= "ADVERTENCIA: El trabjo práctico recientemente enviado no fue entregado dentro del plazo correspondiente, el trabajo se corregirá de todas maneras. La nota del mismo esta sujeta a este retraso del TP"
 
 #Opciones del corrector
 JAVA_TPS=["FRACCION","VECTOR","FIUGRA","POLIGONO","VEHICULO","COCINA"]
@@ -61,7 +63,9 @@ def main():
         corrector=cargar_correctores(id_tp,str(skel_dir),zip_adjunto)
         print("llego una entrega bien")
         
-        print(obtener_fecha_mensaje(msg["Date"]))
+        limitador = checkear_vencimiento_tp(skel_dir,obtener_fecha_mensaje(msg["Date"]))
+        if limitador.advertencia: responder(msg,MENSAJE_ADVERTENCIA) #fijarse de empalmarlo con el otro mail
+        
         output=corrector.corregir()
         responder(msg, "Todo OK: {}".format(output))
         
@@ -72,6 +76,8 @@ def main():
     except NoHayMensajesNuevos:
         print("No hay mensajes nuevos")
         
+    except TrabajoVencido as err:
+        responder(msg, "TRABAJO VENCIDO: {}".format(err))
     except ErrorEntrega as err:
         responder(msg, "ERROR: {}".format(err))
     except RuntimeError as err:
@@ -98,7 +104,9 @@ def convertir_a_zip(zip_bytes):
         raise ErrorEntrega(ZIP_DANIADO)
 
 def checkear_vencimiento_tp(skel_dir, fechaEntrega):
-    return
+    limitador = LimiteDeEntrega(skel_dir,fechaEntrega)
+    limitador.checkear()
+    return limitador
     
            
 def cargar_correctores(id_tp=None,skel_dir=None,zip_adjunto=None):
