@@ -32,22 +32,23 @@ class PyCorrector:
         #Ejecuto el subproceso que corrige el TP
         try:
             p=subprocess.run(COMANDOS,cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE,timeout=TIMEOUT)
-        except subprocess.TimeoutExpired:
-            raise ErrorEntrega("TimeOut - El proceso tardó demasiado en ejecutar.")
             
-        borrar_archivo_de_directorio(self)
+            borrar_archivo_de_directorio(self)
+                
+            output=p.stdout.decode("utf-8")
+                
+            #registrar_entrega(id_tp,alumno_id,p.returncode)
+                
+            #Si hay error lanzo el errorEntrega
+            if p.returncode != 0:
+               error = p.stderr.decode("utf-8")
+               raise ErrorEntrega(error + '\n' + output)
             
-        output=p.stdout.decode("utf-8")
-            
-        #registrar_entrega(id_tp,alumno_id,p.returncode)
-            
-        #Si hay error lanzo el errorEntrega
-        if p.returncode != 0:
-           error = p.stderr.decode("utf-8")
-           raise ErrorEntrega(error + '\n' + output)
+            return output
         
-        return output
-           
+        except subprocess.TimeoutExpired:
+            borrar_archivo_de_directorio(self)
+            raise ErrorEntrega("TimeOut - El proceso tardó demasiado en ejecutar.")
            
            
     
