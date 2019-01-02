@@ -21,8 +21,12 @@ class LimiteDeEntrega:
     
     def confirmar_horario_entrega(self):
         credential={}
-        with open(self.credential) as handle:
-            credential = json.load(handle)
+        try:
+            with open(self.credential) as handle:
+                credential = json.load(handle)
+        except FileNotFoundError:
+            print("NO HAY CREDENCIALES DISPONIBLES PARA ESTE TRABAJO PRACTICO")
+            return
         fechaVencimiento = datetime.strptime(credential["vencimiento"], '%d/%m/%Y')
         fechaVencimiento = fechaVencimiento.replace(hour=23, minute=59, second=59)
         if self.fechaAlumno > fechaVencimiento:
