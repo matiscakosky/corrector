@@ -8,6 +8,7 @@ from fetch import NoHayMensajesNuevos
 from fetch import revisar
 from fetch import responder
 from fetch import takeAttachment
+from fetch import obtener_fecha_mensaje
 from excepciones import ErrorEntrega
 from pyCorrector import PyCorrector
 from javaCorrector import JavaCorrector4
@@ -60,7 +61,7 @@ def main():
         corrector=cargar_correctores(id_tp,str(skel_dir),zip_adjunto)
         print("llego una entrega bien")
         
-        print(msg["Date"].datetime)
+        print(obtener_fecha_mensaje(msg["Date"]))
         output=corrector.corregir()
         responder(msg, "Todo OK: {}".format(output))
         

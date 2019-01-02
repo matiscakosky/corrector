@@ -14,6 +14,8 @@ from googleapiclient.discovery import build
 from httplib2 import Http
 from oauth2client import file, client, tools
 import dateutil.parser as parser
+import time
+import datetime
 
 #Usuario gmai = tddentregas@gmail.com
 #Contraseña = tddautomatico
@@ -97,6 +99,12 @@ def revisar_nuevos_no_leidos(service):
     if (not len(mssg_list)): raise NoHayMensajesNuevos("No hay mensajes nuevos en este momento")
     return mssg_list[0]
     #Si quiero que devuelva todos los no leidos quito el parametro maxResults=1 de .list() y hago return mssg_list (Ojo como lo manejas mas arriba)
+
+def obtener_fecha_mensaje(date_str):
+    """Recibe un string con la fecha en el formato dada por el objeto message. Devuelve un date time con la fecha del mensaje"""
+    tupla = email.utils.parsedate(date_str)
+    tiempo = time.mktime(tupla)
+    return datetime.datetime.fromtimestamp(tiempo)
 
 def obtener_datos_de_mensaje(message):
     """
