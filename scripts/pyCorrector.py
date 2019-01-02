@@ -7,7 +7,7 @@ from excepciones import ErrorEntrega
 
 
 COMANDOS = ["python","pruebas.py"]
-
+TIMEOUT = 120
 
 class PyCorrector:
     """Corrector de python
@@ -30,7 +30,10 @@ class PyCorrector:
         
         
         #Ejecuto el subproceso que corrige el TP
-        p=subprocess.run(COMANDOS,cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        try:
+            p=subprocess.run(COMANDOS,cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE,timeout=TIMEOUT)
+        except subprocess.TimeoutExpired:
+            raise ErrorEntrega("TimeOut - El proceso tardó demasiado en ejecutar.")
             
         borrar_archivo_de_directorio(self)
             

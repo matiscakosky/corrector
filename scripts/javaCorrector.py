@@ -12,6 +12,8 @@ PATH = JUNIT + ":" + HAMCREST + ":."
 EXECUTER="org.junit.runner.JUnitCore"
 COMANDOS=["java","-cp",PATH,EXECUTER,"Tests"]
 
+TIMEOUT = 120
+
 
 class JavaCorrector4:
     """Corrector de Java
@@ -37,30 +39,32 @@ class JavaCorrector4:
         print(self.skel_dir)
         self.zip.extractall(self.skel_dir)
         
-        
-        #Compilo archivos de alumno
-        for archivo in self.nombre_archivos:
-            p1=subprocess.run(["javac",archivo],cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            if p1.returncode: break     #Corta si encuentra un error.
-        print("compilo alumno")
-        
-        #Compilo archivo de Tests
-        path=JUNIT+":."
-        p2=subprocess.run(["javac","-cp",path,"Tests.java"],cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        output=p2.stdout.decode("utf-8")
-        print("compilo test")
-
-        #Ejecuto JUnit
-        p3=subprocess.run(COMANDOS,cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        output=p3.stdout.decode("utf-8")
-        
-        self.borrar_archivo_de_directorio()
-        
-        if p1.returncode or p2.returncode or p3.returncode:
-            error = "Compilation problems : - " + p1.stderr.decode("utf-8") + "Execution problems : - " + p3.stderr.decode("utf-8")
-            raise ErrorEntrega(error + '\n' + output)
-        print("ejecuto")
-        return output
+        try:
+            #Compilo archivos de alumno
+            for archivo in self.nombre_archivos:
+                p1=subprocess.run(["javac",archivo],cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE,timeout=TIMEOUT)
+                if p1.returncode: break     #Corta si encuentra un error.
+            print("compilo alumno")
+            
+            #Compilo archivo de Tests
+            path=JUNIT+":."
+            p2=subprocess.run(["javac","-cp",path,"Tests.java"],cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE,timeout=TIMEOUT)
+            output=p2.stdout.decode("utf-8")
+            print("compilo test")
+    
+            #Ejecuto JUnit
+            p3=subprocess.run(COMANDOS,cwd=self.skel_dir,stdin=subprocess.DEVNULL,stdout=subprocess.PIPE, stderr=subprocess.PIPE,timeout=TIMEOUT)
+            output=p3.stdout.decode("utf-8")
+            
+            self.borrar_archivo_de_directorio()
+            
+            if p1.returncode or p2.returncode or p3.returncode:
+                error = "Compilation problems : - " + p1.stderr.decode("utf-8") + "Execution problems : - " + p3.stderr.decode("utf-8")
+                raise ErrorEntrega(error + '\n' + output)
+            print("ejecuto")
+            return output
+        except subprocess.TimeoutExpired:
+            raise ErrorEntrega("TimeOut - El proceso tardó demasiado en ejecutar.")
     
     def borrar_archivo_de_directorio(self):
         #Borro el archivo descargados
