@@ -9,4 +9,5 @@ gc=gspread.authorize(credentials)
 
 wks=gc.open('Alumnos').sheet1
 
-print(wks.append_row(["Muller Thomas","A"]))
+print(type(wks))
+print(wks.get_all_values())

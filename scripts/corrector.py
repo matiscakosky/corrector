@@ -4,6 +4,9 @@
     
 """
 
+import os
+from registro import registrar_alumno
+from registro import autenticar
 from fetch import NoHayMensajesNuevos
 from fetch import revisar
 from fetch import responder
@@ -14,7 +17,6 @@ from excepciones import TrabajoVencido
 from pyCorrector import PyCorrector
 from vencimientos import LimiteDeEntrega
 from javaCorrector import JavaCorrector4
-import os
 import re
 import io
 import zipfile
@@ -22,8 +24,7 @@ import pathlib
 from time import sleep
 
 
-TP_DIR = pathlib.Path(os.environ["SKEL_DIR"])
-
+SKEL_DIR = pathlib.Path(os.environ["SKEL_DIR"])
 
 MAX_ZIP_SIZE = 1024 ** 2
 
@@ -37,7 +38,7 @@ MENSAJE_ADVERTENCIA= "ADVERTENCIA: El trabjo práctico recientemente enviado no 
 #Opciones del corrector
 JAVA_TPS=["FRACCION","VECTOR","FIUGRA","POLIGONO","VEHICULO","COCINA"]
 PY_TPS=["TPPY1","TPPY2","TPPY3","TPPY4","LISTA"]
-CONSULTAS=["NOTAS"]
+CONSULTAS=["NOTAS","REGISTRAR"]
 
 
 def escuchar():
@@ -49,17 +50,22 @@ def escuchar():
 def main():
     """ Funcion principal """
     try:
-        msg = revisar()
-        id_tp = buscar_tp(msg["Subject"])
-        #alumno_id = buscar_alumno(msg["Subject"])
+        msg = revisar() #Conecto Con la API de Gmail
+        wks = autenticar() # Concecto con la API de Drive y Spreadsheet
         
-    
+        
+        id_tp = buscar_tp(msg["Subject"])
+        
+        
+        
         if id_tp in CONSULTAS:
-            print("hacer")
-            #Subproceso de consultas
-    
+            manejar_consultas(wks,msg,id_tp)
+            return
+            
+            
+        #alumno_id = buscar_alumno(msg["Subject"])
         zip_adjunto = convertir_a_zip(takeAttachment(msg))
-        skel_dir = TP_DIR / id_tp
+        skel_dir = SKEL_DIR / id_tp
         corrector=cargar_correctores(id_tp,str(skel_dir),zip_adjunto)
         print("llego una entrega bien")
         
@@ -84,7 +90,7 @@ def main():
 
 def buscar_tp(subject):
     subj_words = [w.lower() for w in re.split(r"[^_\w]+", subject)]
-    candidates = {p.name.lower(): p.name for p in TP_DIR.iterdir()}
+    candidates = {p.name.lower(): p.name for p in SKEL_DIR.iterdir()}
     
     for key in candidates:
         if key in subj_words:
@@ -114,8 +120,17 @@ def cargar_correctores(id_tp=None,skel_dir=None,zip_adjunto=None):
     elif id_tp in JAVA_TPS:
         return JavaCorrector4(id_tp=id_tp,skel_dir=skel_dir,zip_tp=zip_adjunto)
     
-    
-                
+
+def manejar_consultas(wks,msg,id_tp):
+    if id_tp == "REGISTRAR":
+        #El subject del mail de registro de la forma "REGISTRO - Apellido Nombre - A - DNI"
+        subj_words = [w.lower() for w in re.split(r"[^_\w]+", msg["Subject"])]
+        nombre = subj_words[1] + " " + subj_words[2]
+        sexto=subj_words[3]
+        dni = subj_words[4]
+        registrar_alumno(wks,nombre=nombre,sexto=sexto,dni=dni,fecha=obtener_fecha_mensaje(msg["Date"]),email=msg["From"])
+        
+
 def buscar_alumno(subject):
     subj_words = [w.lower() for w in re.split(r"[^_\w]+", subject)]
 
