@@ -34,7 +34,7 @@ MAL_TAMANIO = "Archivo supera el Limite permitido de tamaño de {} bytes".format
 ARCHIVO_INEXISTENTE = "No se encontro ningun archivo comprimido de formato esperado adjunto en el mail enviado, por favor adjunte su entrega" 
 ZIP_DANIADO = "El archivo comprimido se encuentra dañado, no es tenido en cuenta. Por favor reenviar un archivo que funcione"
 MENSAJE_ADVERTENCIA= "ADVERTENCIA: El trabjo práctico recientemente enviado no fue entregado dentro del plazo correspondiente, el trabajo se corregirá de todas maneras. La nota del mismo esta sujeta a este retraso del TP"
-
+MAL_REGISTRO="Un problema surgio con su registro. Revisar si llenó correctamente los campos del registro en el asunto del mail y vuelvalo a intentar. Su registro no fue tenido en cuenta"
 #Opciones del corrector
 JAVA_TPS=["FRACCION","VECTOR","FIUGRA","POLIGONO","VEHICULO","COCINA"]
 PY_TPS=["TPPY1","TPPY2","TPPY3","TPPY4","LISTA"]
@@ -124,11 +124,15 @@ def cargar_correctores(id_tp=None,skel_dir=None,zip_adjunto=None):
 def manejar_consultas(wks,msg,id_tp):
     if id_tp == "REGISTRAR":
         #El subject del mail de registro de la forma "REGISTRO - Apellido Nombre - A - DNI"
-        subj_words = [w.lower() for w in re.split(r"[^_\w]+", msg["Subject"])]
-        nombre = subj_words[1] + " " + subj_words[2]
-        sexto=subj_words[3]
-        dni = subj_words[4]
-        registrar_alumno(wks,nombre=nombre,sexto=sexto,dni=dni,fecha=obtener_fecha_mensaje(msg["Date"]),email=msg["From"])
+        try:
+            subj_words = [w.lower() for w in re.split(r"[^_\w]+", msg["Subject"])]
+            nombre = subj_words[1] + " " + subj_words[2]
+            sexto=subj_words[3]
+            dni = subj_words[4]
+            registrar_alumno(wks,nombre=nombre,sexto=sexto,dni=dni,fecha=obtener_fecha_mensaje(msg["Date"]),email=msg["From"])
+            responder(msg,"Registro completado con éxito - Bienvenido a Taller de desarrollo de sistemas - TIC ORT Argentina")
+        except IndexError:
+            raise ErrorEntrega(MAL_REGISTRO)
         
 
 def buscar_alumno(subject):
