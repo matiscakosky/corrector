@@ -137,6 +137,9 @@ def manejar_consultas(wks,msg,id_tp):
             responder(msg,BIENVENIDA)
         except IndexError:
             raise ErrorEntrega(MAL_REGISTRO)
+    elif id_tp == "NOTAS":
+        #El subject del mail de registro sera de la forma NOTAS - DNI
+        
         
 
 def buscar_alumno(wks,subject):

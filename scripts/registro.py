@@ -7,6 +7,8 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from excepciones import AlumnoInexistente
 from datetime import datetime
+
+
 LIMITE_REGSITRO= (datetime.strptime("31/03/2019", '%d/%m/%Y')).replace(hour=23, minute=59, second=59)
 SCOPES=['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
 
@@ -26,6 +28,9 @@ def registrar_alumno(wks,nombre,dni,sexto,fecha,email):
 
 
 def registrar_entrega(wks,id_tp,id_alumno,aprobo):
+    """ Dados el token de acceso, un tp, un alumno y si aprobo o no. Registra la entrega en la planilla. Agregando el tp si no existia y fue el primer alumno en entregarlo
+    """
+    
     nota= "OK" if aprobo else "ERROR"
     #Corroboro si esta registrado el tp en el header:
     header= wks.row_values(1)
@@ -46,6 +51,7 @@ def buscar_id(wks,subj_words):
             print("Se encontró al alumno en la planilla", str(dic["DNI"]))
             return str(dic["DNI"])
     raise AlumnoInexistente("No se encontro ningun alumno registrado")
-    
+
+
     
     
