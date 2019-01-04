@@ -38,6 +38,8 @@ ZIP_DANIADO = "El archivo comprimido se encuentra dañado, no es tenido en cuent
 MENSAJE_ADVERTENCIA= "ADVERTENCIA: El trabjo práctico recientemente enviado no fue entregado dentro del plazo correspondiente, el trabajo se corregirá de todas maneras. La nota del mismo esta sujeta a este retraso del TP"
 MAL_REGISTRO="Un problema surgio con su registro/entrega. Revisar si llenó correctamente los campos del registro/entrega en el asunto del mail y vuelvalo a intentar. Su registro/entrega no fue tenida en cuenta"
 BIENVENIDA="Registro completado con éxito - Bienvenido a Taller de desarrollo de sistemas - TIC ORT Argentina"
+
+
 #Opciones del corrector
 JAVA_TPS=["FRACCION","VECTOR","FIUGRA","POLIGONO","VEHICULO","COCINA"]
 PY_TPS=["TPPY1","TPPY2","TPPY3","TPPY4","LISTA"]
@@ -54,8 +56,7 @@ def main():
     """ Funcion principal """
     try:
         msg = revisar() #Conecto Con la API de Gmail
-        wks = autenticar() # Concecto con la API de Drive y Spreadsheet
-        
+        wks = autenticar() # Concecto con la API de Drive y Spreadsheet   
         id_tp = buscar_tp(msg["Subject"])
         
         if id_tp in CONSULTAS:
@@ -76,11 +77,6 @@ def main():
         
         responder(msg, "Todo OK: {}".format(output))
         registrar_entrega(wks,id_tp, id_alumno,True)
-        
-        
-        
-
-
    
     except NoHayMensajesNuevos:
         print("No hay mensajes nuevos")
@@ -91,10 +87,8 @@ def main():
     except ErrorEntrega as err:
         if id_tp and id_alumno:
             registrar_entrega(wks,id_tp, id_alumno,False)
-            
         responder(msg, "ERROR: {}".format(err))
-    
-    
+        
     except RuntimeError as err:
         responder(msg, "ERROR: Comunicarse con el docente para solucionarlo {}".format(err))
 
@@ -148,7 +142,6 @@ def manejar_consultas(wks,msg,id_tp):
 def buscar_alumno(wks,subject):
     subj_words = [w.lower() for w in re.split(r"[^_\w]+", subject)]
     id_alumno=buscar_id(wks,subj_words)
-    print(id_alumno)
     return id_alumno 
         
 if __name__ == "__main__":

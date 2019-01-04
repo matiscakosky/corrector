@@ -36,10 +36,9 @@ def registrar_entrega(wks,id_tp,id_alumno,aprobo):
     celdaAlumno = wks.find(id_alumno)
     celdaTP = wks.find(id_tp)
     wks.update_cell(celdaAlumno.row,celdaTP.col,nota)
-       
+        
 
 def buscar_id(wks,subj_words):
-    print(subj_words)
     """Dado el token de SpreadSheets y un asunto de un mail, busca si hay un DNI en la planilla que coincida con el del asunto"""
     registros=wks.get_all_records()
     for dic in registros:
