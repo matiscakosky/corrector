@@ -1,0 +1,13 @@
+Estimado alumno:
+
+El sistema de consulta de notas devolverá las notas que son visibles para el alumno que las solicite.
+El docente puede tener además otras notas en su planilla privada, que también son parte integral del calculo de notas para el final del trimestre.
+
+Datos del alumno solicitante:
+Nombre del Alumno: {}
+DNI: {}
+Email: {}
+Fecha de registro en el corrector: {}
+Curso: 6to TIC '{}'
+
+---------------------- NOTAS ----------------------------------

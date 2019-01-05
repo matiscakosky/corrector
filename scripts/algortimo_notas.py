@@ -16,6 +16,8 @@ ERROR="ERROR"
 GRAIDIANCE="GRADIANCE1"
 PRACTICO = "PRACTICO1"
 
+#Lista de trabajos practicos del año
+TPS=["FRACCION","VECTOR","FIUGRA","POLIGONO","VEHICULO","COCINA","TPPY1","TPPY2","TPPY3","TPPY4","LISTA"]
 
 def calcular_nota_alumno(features):
     """Recive un diccionario de features donde las claves son los trabajos o los examenes y los valores las notas. Devuelve una nota asociada """
@@ -23,7 +25,7 @@ def calcular_nota_alumno(features):
     maximo = 10
     #Checkeo de trabajos practicos
     for k in features:
-        if features[k]==ERROR:
+        if (k in TPS and not features[k]) or features[k]==ERROR:
             maximo=5
     if COPIA in features and features[COPIA]:
         maximo=3
