@@ -10,6 +10,11 @@ La materia tiene una forma definida y absoluta para el calculo de notas. Los cri
     - Cualquier trabajo copiado hace que la nota maxima del trimestre sea 3
     - La nota base es un conjunto entre la nota del choice y el examen practico: puntajeObtenido* 0.4 + notaPractico * 0.6
 """
+#Notaciones del spreadsheet
+COPIA="COPIA"
+ERROR="ERROR"
+GRAIDIANCE="GRADIANCE1"
+PRACTICO = "PRACTICO1"
 
 
 def calcular_nota_alumno(features):
@@ -18,16 +23,16 @@ def calcular_nota_alumno(features):
     maximo = 10
     #Checkeo de trabajos practicos
     for k in features:
-        if features[k]=="ERROR":
+        if features[k]==ERROR:
             maximo=5
-    if "copia" in features and features["copia"]:
+    if COPIA in features and features[COPIA]:
         maximo=3
         
     #Checkeo de examenes.
     
-    raw_new_gradiance=features["gradiance"]
+    raw_new_gradiance=features[GRAIDIANCE]
     gradiance= (raw_new_gradiance/18) * 10
-    practico = features["practico"]
+    practico = features[PRACTICO]
     
     if gradiance <= 5 or practico <=5:
         maximo = 5

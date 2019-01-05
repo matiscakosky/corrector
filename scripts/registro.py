@@ -8,9 +8,19 @@ from oauth2client.service_account import ServiceAccountCredentials
 from excepciones import AlumnoInexistente
 from datetime import datetime
 
-
+ARCHIVO_CONSULTA="consulta_notas.txt"
 LIMITE_REGSITRO= (datetime.strptime("31/03/2019", '%d/%m/%Y')).replace(hour=23, minute=59, second=59)
 SCOPES=['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
+
+
+#Notaciones del SpreadSheet
+NOMBRE="APELLIDO Y NOMBRE"
+DNI="DNI"
+CURSO="6TO"
+FECHA="FECHA REGISTRO"
+EMAIL="EMAIL"
+
+
 
 def autenticar():
     """Genera el token de acceso a SpreadSheets """
@@ -47,11 +57,33 @@ def buscar_id(wks,subj_words):
     """Dado el token de SpreadSheets y un asunto de un mail, busca si hay un DNI en la planilla que coincida con el del asunto"""
     registros=wks.get_all_records()
     for dic in registros:
-        if str(dic["DNI"]) and str(dic["DNI"]) in subj_words:
-            print("Se encontró al alumno en la planilla", str(dic["DNI"]))
-            return str(dic["DNI"])
+        if str(dic[DNI]) and str(dic[DNI]) in subj_words:
+            print("Se encontró al alumno en la planilla", str(dic[DNI]))
+            return str(dic[DNI])
     raise AlumnoInexistente("No se encontro ningun alumno registrado")
-
+    
+def consulta_de_notas(wks,id_alumno):
+    registros = wks.get_all_records()
+    dicAlumno= {}
+    for dic in registros:
+        if str(dic[DNI])==id_alumno:
+            print("entro aca")
+            dicAlumno=dic
+            break
+    rta=""
+    with open(ARCHIVO_CONSULTA,'r',encoding = "ISO-8859-1") as archivo:
+        l=list(archivo.readlines())
+        rta= "".join(l)
+        rta=rta.format(dicAlumno[NOMBRE],dicAlumno[DNI],dicAlumno[EMAIL],dicAlumno[FECHA],dicAlumno[CURSO])
+    
+    #Uso el header para darlos en orden
+    header= wks.row_values(1)[5:] #lAS PRIMERAS 5 POSICIONES NO ME INTERESAN SON PARTE DE LOS DATOS
+    
+    for elem in header:
+        rta += '\n'
+        rta += "{}: {}".format(elem,dicAlumno[elem])
+    
+    return rta
 
     
     

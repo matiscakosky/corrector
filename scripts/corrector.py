@@ -19,6 +19,7 @@ from registro import registrar_alumno
 from registro import registrar_entrega
 from registro import autenticar
 from registro import buscar_id
+from registro import consulta_de_notas
 import re
 import io
 import zipfile
@@ -139,7 +140,9 @@ def manejar_consultas(wks,msg,id_tp):
             raise ErrorEntrega(MAL_REGISTRO)
     elif id_tp == "NOTAS":
         #El subject del mail de registro sera de la forma NOTAS - DNI
-        
+        id_alumno = buscar_alumno(wks,msg["Subject"])
+        respuesta = consulta_de_notas(wks,id_alumno)
+        responder(msg, respuesta)
         
 
 def buscar_alumno(wks,subject):
