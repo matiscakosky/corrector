@@ -1,0 +1,3 @@
+[submodule "scripts/moss"]
+	path = scripts/moss
+	url = https://github.com/matiscakosky/tps_alumnos
