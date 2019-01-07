@@ -7,11 +7,6 @@ import pathlib
 import zipfile 
 from git import Git
 
-
-repository=pathlib.Path(r"/mnt/c/users/usuario/desktop/fiuba/Organizacion de datos/La otra/finger 4/Subcarpeta")
-
-
-
 MOSS_DIR = pathlib.Path(os.environ["MOSS_DIR"])
 
 class Moss:
