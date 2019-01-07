@@ -4,7 +4,7 @@ import os
 import subprocess
 import zipfile
 from excepciones import ErrorEntrega
-
+import shutil
 
 COMANDOS = ["python","pruebas.py"]
 TIMEOUT = 5
@@ -56,7 +56,7 @@ def borrar_archivo_de_directorio(self):
         #Borro el archivo descargados
         for filename in os.listdir(self.skel_dir):
             if filename == "__pycache__":
-                os.rmdir(self.skel_dir + "/" + filename)
+                shutil.rmtree(self.skel_dir + "/" + filename, ignore_errors=True)
             if (filename in self.nombre_archivos) or filename.endswith(".pyc"):
                 os.remove( self.skel_dir + "/" + filename)
  
