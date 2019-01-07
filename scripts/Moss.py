@@ -32,7 +32,7 @@ class Moss:
     
     
     def subir(self):
-        """"askpass.py es un script que saque de internet para obtener facil la contraseña de github """
+        """"askpass.py es un script que saque de internet para obtener facil la contraseña de github"""
         project_dir = os.path.dirname(os.path.abspath(__file__))
         os.environ['GIT_ASKPASS'] = os.path.join(project_dir, 'askpass.py')
         os.environ['GIT_USERNAME'] = "matiscakosky"
