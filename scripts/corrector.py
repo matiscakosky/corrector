@@ -20,6 +20,8 @@ from registro import registrar_entrega
 from registro import autenticar
 from registro import buscar_id
 from registro import consulta_de_notas
+from registro import buscar_nombre
+from Moss import Moss
 import re
 import io
 import zipfile
@@ -78,6 +80,10 @@ def main():
         
         responder(msg, "Todo OK: {}".format(output))
         registrar_entrega(wks,id_tp, id_alumno,True)
+        
+        moss = Moss(id_tp, buscar_nombre(wks,id_alumno), obtener_fecha_mensaje(msg["Date"]), zip_adjunto)
+        moss.guardar_directorio()
+        moss.subir()
    
     except NoHayMensajesNuevos:
         print("No hay mensajes nuevos")

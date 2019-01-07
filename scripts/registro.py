@@ -62,6 +62,16 @@ def buscar_id(wks,subj_words):
             return str(dic[DNI])
     raise AlumnoInexistente("No se encontro ningun alumno registrado")
     
+    
+    
+def buscar_nombre(wks, id_alumno):
+    """Dado un token de spreadsheet y un id_alumno busca el nombre ubicado en la primera columna"""
+    celdaAlumno = wks.find(id_alumno)
+    celdaNombre = wks.cell(celdaAlumno.row,1) #Esta en la fila del alumno y columna 1
+    return celdaNombre.value
+    return
+
+
 def consulta_de_notas(wks,id_alumno):
     registros = wks.get_all_records()
     dicAlumno= {}
