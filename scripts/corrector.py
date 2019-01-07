@@ -56,7 +56,7 @@ def escuchar():
         
 
 def main():
-    """ Funcion principal """
+    """ Funcion principal"""
     try:
         msg = revisar() #Conecto Con la API de Gmail
         wks = autenticar() # Concecto con la API de Drive y Spreadsheet   
