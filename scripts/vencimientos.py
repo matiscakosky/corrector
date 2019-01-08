@@ -1,9 +1,15 @@
 # -*- coding: utf-8 -*-
 """
 Script que contiene la clase LimiteDeEntrega. Encargada de manipular las credenciales de los trabajos practicos y decidir que hacer dadod un trabajo practico
-NO ES SENSIBLE A FALLOS. SI NO EXISTEN LAS CREDENCIALES DEBE SEGUIR CORRIGIENDO NORMALMENTE
+
 
 La fecha de vencimiento sera dada en clase y tendran tiempo de hacerla hasta ese dia a las 23:59:59
+
+FALTA!!!
+-NO ES SENSIBLE A FALLOS. SI NO EXISTEN LAS CREDENCIALES DEBE SEGUIR CORRIGIENDO NORMALMENTE. QUE PASA CON LOS ERRORES DESPUES DEL EXCEPT?
+- EL SCRIPT PRINCIPAL DEBE TOMAR NOTA DE SI SE ESTA CORRIGIENDO CON ADVERTENCIA
+- NO PONER LO DE 23.59.59 CAMBIAR LA LINEA DE STRPTME '%d/%m/%Y' POR '%d/%m/%Y /h:/M:/s' Y CAMBIARLO EN LA CRENCIAL SI ESTAS TOMANDO EXAMEN NECESITAS LA HORA DE VENCIMIENTO!!!!
+-
 
 
 """
