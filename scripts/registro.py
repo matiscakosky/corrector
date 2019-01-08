@@ -73,11 +73,14 @@ def buscar_nombre(wks, id_alumno):
 
 
 def consulta_de_notas(wks,id_alumno):
+    """Recibe el token y un id_alumno. Busca en la planilla la fila correspondiente al id que llego por parametro y toma un mensaje predefinido como un txt fuera del programa y lo formatea con los datos
+    del alumno. Luego agrega las notas de toda la fila
+    FALTA ESCONDER LAS QUE SON PRIVADAS Y NO DEBERIAN VER. EJEMPLO: CONCEPTO Y SE COPIO"""
+    
     registros = wks.get_all_records()
     dicAlumno= {}
     for dic in registros:
         if str(dic[DNI])==id_alumno:
-            print("entro aca")
             dicAlumno=dic
             break
     rta=""
@@ -87,7 +90,7 @@ def consulta_de_notas(wks,id_alumno):
         rta=rta.format(dicAlumno[NOMBRE],dicAlumno[DNI],dicAlumno[EMAIL],dicAlumno[FECHA],dicAlumno[CURSO])
     
     #Uso el header para darlos en orden
-    header= wks.row_values(1)[5:] #lAS PRIMERAS 5 POSICIONES NO ME INTERESAN SON PARTE DE LOS DATOS
+    header= wks.row_values(1)[5:]   #lAS PRIMERAS 5 POSICIONES NO ME INTERESAN SON PARTE DE LOS DATOS
     
     for elem in header:
         rta += '\n'
