@@ -1,4 +1,4 @@
-#### Corrector automático de trabajos prácticos y exámenes para ORT
+# Corrector automático de trabajos prácticos y exámenes para ORT
 El corrector recibe una entrega por mail con un formato esperado y descarga los archivos en un path especifico. Ejecuta un archivo de pruebas y devuelve una respuesta al alumno. Actualiza una planilla de spreadsheet y sube la entrega a un repositorio de github.
 
 
@@ -6,7 +6,7 @@ El corrector recibe una entrega por mail con un formato esperado y descarga los 
 El programa corre con python 3.6 o superior.
 Deben instalarse varias librerías. Algunas de ellas:
 
-# Variables de entorno
+#### Variables de entorno
 Deben colocarse las variables de entorno
 SKEL_DIR -> A donde esten los trabajos practicos y sus pruebas 
 MOSS_DIR -> A donde esten guardados los trabajos de los alumnos
