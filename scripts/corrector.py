@@ -2,6 +2,16 @@
 """
     Script principal de procesamiento de la entrega
     
+    Flujo principal del corrector:
+        - Revisa que haya una entrega en la casilla de mensajes de tddentregas@gmail.com
+        - Autentica en Google Drive y Google Spreadsheets y genera un objeto token para poder acceder y modificar las planillas
+        - Revisa en el asunto si hay un trabajo practico reconocido o una consulta
+        - Revisa en el asunto si hay un alumno registrado en la planilla
+        - Si hay un TP genera un objeto corrector de Java o Python según reconozca en el asunto del mail
+        - Revisa las credenciales del TP, si las mismas son validas continua con la correccion, sino la limita a una advertencia o la cancelacion del mismo.
+        - El objeto corrector realiza su correcion
+        - Se actualiza la planilla 
+        - Se genera un objeto Moss que una vez aprobado el TP guarda el contenido del archivo comprimido en un path y sube todos los scripts a un repositorio en Github.
 """
 
 import os
@@ -12,6 +22,7 @@ from fetch import takeAttachment
 from fetch import obtener_fecha_mensaje
 from excepciones import ErrorEntrega
 from excepciones import TrabajoVencido
+from excepciones import AlumnoInexistente
 from pyCorrector import PyCorrector
 from vencimientos import LimiteDeEntrega
 from javaCorrector import JavaCorrector4
@@ -41,7 +52,7 @@ ZIP_DANIADO = "El archivo comprimido se encuentra dañado, no es tenido en cuent
 MENSAJE_ADVERTENCIA= "ADVERTENCIA: El trabjo práctico recientemente enviado no fue entregado dentro del plazo correspondiente, el trabajo se corregirá de todas maneras. La nota del mismo esta sujeta a este retraso del TP"
 MAL_REGISTRO="Un problema surgio con su registro/entrega. Revisar si llenó correctamente los campos del registro/entrega en el asunto del mail y vuelvalo a intentar. Su registro/entrega no fue tenida en cuenta"
 BIENVENIDA="Registro completado con éxito - Bienvenido a Taller de desarrollo de sistemas - TIC ORT Argentina"
-
+ALUMNO_INEXSISTENTE="ERROR: No se logro identificar al alumno revise si escribio bien su DNI"
 
 #Opciones del corrector
 JAVA_TPS=["FRACCION","VECTOR","FIUGRA","POLIGONO","VEHICULO","COCINA"]
@@ -87,6 +98,9 @@ def main():
    
     except NoHayMensajesNuevos:
         print("No hay mensajes nuevos")
+    
+    except AlumnoInexistente:
+        responder(msg, ALUMNO_INEXSISTENTE)
         
     except TrabajoVencido as err:
         responder(msg, "TRABAJO VENCIDO: {}".format(err))
@@ -100,6 +114,14 @@ def main():
         responder(msg, "ERROR: Comunicarse con el docente para solucionarlo {}".format(err))
 
 def buscar_tp(subject):
+    """ 
+        Recibe el asunto del mail en forma de string. Itera por el directorio de SKEL_DIR y busca si alguna palabra 
+        del asunto coincide con algun sub-directorio ubicado en SKEL_DIR. 
+        Las consultas tambien son reconocidas en este nivel, para eso deben tener su propio path dentro de SKEL_DIR para ser reconocidas, luego se hara la separacion correspondiente.
+        Si lo encuentra devuelve el nombre del sub-directorio tal cual esta escrito en el path
+        Si no lo encuentra lanza una excepcion de ErrorEntrega
+        
+    """
     subj_words = [w.lower() for w in re.split(r"[^_\w]+", subject)]
     candidates = {p.name.lower(): p.name for p in SKEL_DIR.iterdir()}
     
@@ -120,12 +142,18 @@ def convertir_a_zip(zip_bytes):
         raise ErrorEntrega(ZIP_DANIADO)
 
 def checkear_vencimiento_tp(skel_dir, fechaEntrega):
+    """Recibe la ubicacion del TP que se quiere verificar, y la fecha de entrega en formato date time
+        Devuelve un objeto de la clase LimiteDeEntrega que sabe si el TP esta en condiciones de entregarse.
+    """
     limitador = LimiteDeEntrega(skel_dir,fechaEntrega)
     limitador.confirmar_horario_entrega()
     return limitador
     
            
 def cargar_correctores(id_tp=None,skel_dir=None,zip_adjunto=None):
+    """Devuelve un objeto corrector de java o python segun se haya reconocido anteriormente.
+        Todas las propiedades del corrector son creadas, recibiendo el id_tp la ubicacion del tp en skel_dir y
+        el archivo zip adjuntado en el mail"""
     if id_tp in PY_TPS:
         return PyCorrector(id_tp=id_tp,skel_dir=skel_dir,zip_tp=zip_adjunto)
     elif id_tp in JAVA_TPS:
@@ -133,6 +161,9 @@ def cargar_correctores(id_tp=None,skel_dir=None,zip_adjunto=None):
     
 
 def manejar_consultas(wks,msg,id_tp):
+    """Funcion encargada de manejar las consultas no relacionadas a corregir trabajos practicos.
+    La misma recibe el objeto msg de GMAIL para poder generar una respuesta dentro de la funcion que no sea la de los trabajos practicos 
+    y el toquen de SpreadSheets para poder leer/modificar la planilla. Tambien recibe el id_tp donde contiene en ella que consulta se hara."""
     if id_tp == "REGISTRAR":
         #El subject del mail de registro de la forma "REGISTRO - Apellido Nombre - A - DNI"
         try:
@@ -152,6 +183,8 @@ def manejar_consultas(wks,msg,id_tp):
         
 
 def buscar_alumno(wks,subject):
+    """Recibe el token de spreadsheet y el asunto del mail en forma de string y reconoce si hay algun dni que coincida con los de la planilla, en cuyo caso lo devuelve
+    sino lanza expecion de AlumnoInexsistente"""
     subj_words = [w.lower() for w in re.split(r"[^_\w]+", subject)]
     id_alumno=buscar_id(wks,subj_words)
     return id_alumno 
