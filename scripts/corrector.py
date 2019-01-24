@@ -90,7 +90,7 @@ def main():
         output=corrector.corregir()
         
         responder(msg, "Todo OK: {}".format(output))
-        registrar_entrega(wks,id_tp, id_alumno,True)
+        registrar_entrega(wks,id_tp, id_alumno,True,limitador.advertencia)
         
         moss = Moss(id_tp, buscar_nombre(wks,id_alumno), obtener_fecha_mensaje(msg["Date"]), zip_adjunto)
         moss.guardar_directorio()

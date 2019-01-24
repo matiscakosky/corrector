@@ -43,8 +43,8 @@ class LimiteDeEntrega:
         except FileNotFoundError:
             print("NO HAY CREDENCIALES DISPONIBLES PARA ESTE TRABAJO PRACTICO")
             return
-        fechaVencimiento = datetime.strptime(credential["vencimiento"], '%d/%m/%Y')
-        fechaVencimiento = fechaVencimiento.replace(hour=23, minute=59, second=59)
+        fechaVencimiento = datetime.strptime(credential["vencimiento"], '%d/%m/%Y %H:%M:%S')
+        print(fechaVencimiento)
         if self.fechaAlumno > fechaVencimiento:
             self.advertencia=True
             if not credential["corregible"]:

@@ -37,11 +37,14 @@ def registrar_alumno(wks,nombre,dni,sexto,fecha,email):
         wks.append_row([nombre.upper(),str(dni),str(sexto).upper(),(str(fecha).split())[0],email]) 
 
 
-def registrar_entrega(wks,id_tp,id_alumno,aprobo):
+def registrar_entrega(wks,id_tp,id_alumno,aprobo,advertencia=False):
     """ Dados el token de acceso, un tp, un alumno y si aprobo o no. Registra la entrega en la planilla. Agregando el tp si no existia y fue el primer alumno en entregarlo
     """
     
     nota= "OK" if aprobo else "ERROR"
+    if (advertencia and aprobo):
+        nota= "TARDE"
+        
     #Corroboro si esta registrado el tp en el header:
     header= wks.row_values(1)
     if id_tp not in header:
