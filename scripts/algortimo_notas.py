@@ -15,6 +15,7 @@ COPIA="COPIA"
 ERROR="ERROR"
 GRAIDIANCE="GRADIANCE1"
 PRACTICO = "PRACTICO1"
+TARDE="TARDE"
 
 #Lista de trabajos practicos del año
 TPS=["FRACCION","VECTOR","FIUGRA","POLIGONO","VEHICULO","COCINA","TPPY1","TPPY2","TPPY3","TPPY4","LISTA"]
@@ -29,6 +30,9 @@ def calcular_nota_alumno(features):
             maximo=5
     if COPIA in features and features[COPIA]:
         maximo=3
+    for k in features:
+        if features[k]==TARDE:
+            maximo -= 0.5
         
     #Checkeo de examenes.
     
