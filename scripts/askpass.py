@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Short & sweet script for use with git clone and fetch credentials.
 # Requires GIT_USERNAME and GIT_PASSWORD environment variables,
@@ -8,12 +8,12 @@
 from sys import argv
 from os import environ
 
-if argv[1] == "Username for 'https://github.com': ":
-    print (environ['GIT_USERNAME'])
+if 'username' in argv[1].lower():
+    print(environ['GIT_USERNAME'])
     exit()
 
-if argv[1] == "Password for 'https://%(GIT_USERNAME)s@github.com': " % environ:
-    print (environ['GIT_PASSWORD'])
+if 'password' in argv[1].lower():
+    print(environ['GIT_PASSWORD'])
     exit()
 
 exit(1)
