@@ -36,6 +36,7 @@ class Moss:
         #os.environ['GIT_PASSWORD'] = os.environ["PASS"]
         g = Git(MOSS_DIR) #path to local repo
         self.comitear()
+        g.pull("origin","master")
         g.push("origin","master")
     
     
