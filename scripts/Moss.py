@@ -17,7 +17,7 @@ class Moss:
         shutil.rmtree(self.destino, ignore_errors=True) #Borra el directorio si existe ya
         self.destino.mkdir(parents=True)
         self.fecha=fecha
-        self.commit_message = f"New {id_tp} upload from {nombre_alumno}"
+        self.commit_message = "New {} upload from {}".format(id_tp,nombre_alumno)
         self.zip=zip_tp
     
     def guardar_directorio(self):
