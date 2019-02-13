@@ -49,7 +49,7 @@ MAX_ZIP_SIZE = 1024 ** 2
 MAL_ASUNTO = "No se encontro ninguna entrega en el asunto del mail, por favor reenviar con el formato correspondiente y el nombre de entrega correcto"
 MAL_TAMANIO = "Archivo supera el Limite permitido de tamaño de {} bytes".format(MAX_ZIP_SIZE)
 ARCHIVO_INEXISTENTE = "No se encontro ningun archivo comprimido de formato esperado adjunto en el mail enviado, por favor adjunte su entrega" 
-ZIP_DANIADO = "El archivo comprimido se encuentra dañado, no es tenido en cuenta. Por favor reenviar un archivo que funcione"
+ZIP_DANIADO = "El archivo comprimido se encuentra dañado, no es tenido en cuenta. Por favor reenviar un archivo que funcione. Se recomienda comprimir con el comrpesor online https://archivo.online-convert.com/es/convertir-a-zip"
 MENSAJE_ADVERTENCIA= "ADVERTENCIA: El trabjo práctico recientemente enviado no fue entregado dentro del plazo correspondiente, el trabajo se corregirá de todas maneras. La nota del mismo esta sujeta a este retraso del TP"
 MAL_REGISTRO="Un problema surgio con su registro/entrega. Revisar si llenó correctamente los campos del registro/entrega en el asunto del mail y vuelvalo a intentar. Su registro/entrega no fue tenida en cuenta"
 BIENVENIDA="Registro completado con éxito - Bienvenido a Taller de desarrollo de sistemas - TIC ORT Argentina"
@@ -107,6 +107,9 @@ def main():
         
     except TrabajoVencido as err:
         responder(msg, "TRABAJO VENCIDO: {}".format(err))
+        
+    except zipfile.BadZipFile:
+        responder(msg, "ERROR: {}".format(ZIP_DANIADO))
     
     except ErrorEntrega as err:
         if id_tp and id_alumno:
@@ -139,10 +142,8 @@ def convertir_a_zip(zip_bytes):
     if (not zip_bytes): raise ErrorEntrega(ARCHIVO_INEXISTENTE)
     if len(zip_bytes) > MAX_ZIP_SIZE:
         raise ErrorEntrega(MAL_TAMANIO)
-    try:
-        return zipfile.ZipFile(io.BytesIO(zip_bytes))
-    except zipfile.BadZipFile:
-        raise ErrorEntrega(ZIP_DANIADO)
+    return zipfile.ZipFile(io.BytesIO(zip_bytes))
+
 
 def checkear_vencimiento_tp(skel_dir, fechaEntrega):
     """Recibe la ubicacion del TP que se quiere verificar, y la fecha de entrega en formato date time
