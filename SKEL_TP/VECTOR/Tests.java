@@ -25,6 +25,42 @@ public class Tests {
         print_test("CrearDosVectoresYSumarlos",vecTest.esIgual(vectorSum));
         assertTrue(vecTest.esIgual(vectorSum));
     }
+	
+	
+	@Test
+    public void testCrearTresVectoresYSumarlos(){
+        Vector vector1 = new Vector(1,2);
+        Vector vector2 = new Vector(3,-5);
+		Vector vector3 = new Vector(4,10);
+        Vector vectorSum = vector1.sumar(vector2);
+		vectorSum = vectorSum.sumar(vector3);
+        Vector vecTest = new Vector(8,7);
+        print_test("Crear 3 vectores consecutivos y sumar",vecTest.esIgual(vectorSum));
+        assertTrue(vecTest.esIgual(vectorSum));
+    }
+	
+	@Test
+	public void sumarVectorNulo(){
+        Vector vector1 = new Vector(1,1);
+        Vector vector2 = new Vector(0,0);
+		Vector vector3 = new Vector(0,0);
+        Vector vectorSum = vector1.sumar(vector2);
+		vectorSum = vectorSum.sumar(vector3);
+        Vector vecTest = new Vector(1,1);
+        print_test("Crear 3 vectore consecutivos y sumar",vecTest.esIgual(vectorSum));
+        assertTrue(vecTest.esIgual(vectorSum));
+    }
+	
+	@Test
+	public void pruebaDeVolumendeSumar(){
+		Vector v = new Vector(0,0);
+		for (int i=1,i<=1000,i++){
+			v=v.sumar(new Vector(i,i));
+		}
+		Vector vres= new Vector(500500,500500);
+		print_test("pruebaDeVolumenDeSumar",vres.esIgual(v));
+        assertTrue(v.esIgual(vres));
+    }
 
     @Test
     public void test03Crear2YRestarVectores(){
@@ -44,11 +80,29 @@ public class Tests {
         print_test("Crear2yObtenerSuProductoInterno",vector1.calcularProductoInterno(vector2)==RESULTADO_PI);
         assertEquals(vector1.calcularProductoInterno(vector2),RESULTADO_PI);
     }
+	
+	@Test
+    public void productoInternoConCero(){
+        Vector vector1 = new Vector(1,5);
+        Vector vector2 = new Vector(0,0);
+        int RESULTADO_PI = 0;
+        print_test("ProductoInternoConCero",vector1.calcularProductoInterno(vector2)==RESULTADO_PI);
+        assertEquals(vector1.calcularProductoInterno(vector2),RESULTADO_PI);
+    }
+	
+	@Test
+    public void productoInternoConNegativos(){
+        Vector vector1 = new Vector(-5,-3);
+        Vector vector2 = new Vector(-1,-2);
+        int RESULTADO_PI = 11;
+        print_test("Crear2yObtenerSuProductoInterno",vector1.calcularProductoInterno(vector2)==RESULTADO_PI);
+        assertEquals(vector1.calcularProductoInterno(vector2),RESULTADO_PI);
+    }
 
     @Test
     public void test05CrearUnVectorYCaclularSuMagnitud(){
-        Vector vector1 = new Vector(3,-4);
-        int RESULTADO_MAG = 5;
+        Vector vector1 = new Vector(8,5);
+        int RESULTADO_MAG = 9;
         print_test("CrearUnVectorYCaclularSuMagnitud",vector1.calcularMagnitud()==RESULTADO_MAG);
         assertEquals(vector1.calcularMagnitud(),RESULTADO_MAG);
     }
