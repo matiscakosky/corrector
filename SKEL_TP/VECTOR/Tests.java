@@ -47,14 +47,14 @@ public class Tests {
         Vector vectorSum = vector1.sumar(vector2);
 		vectorSum = vectorSum.sumar(vector3);
         Vector vecTest = new Vector(1,1);
-        print_test("Crear 3 vectore consecutivos y sumar",vecTest.esIgual(vectorSum));
+        print_test("Crear 3 vectores consecutivos y sumar",vecTest.esIgual(vectorSum));
         assertTrue(vecTest.esIgual(vectorSum));
     }
 	
 	@Test
 	public void pruebaDeVolumendeSumar(){
 		Vector v = new Vector(0,0);
-		for (int i=1,i<=1000,i++){
+		for (int i=1;i<=1000;i++){
 			v=v.sumar(new Vector(i,i));
 		}
 		Vector vres= new Vector(500500,500500);
