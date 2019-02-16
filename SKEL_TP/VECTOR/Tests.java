@@ -130,6 +130,30 @@ public class Tests {
         print_test("CrearVectoresYFijarseSiSonParalelosConCerosEnSusCoordenadas",v1.sonParalelos(v2));
         assertTrue(v1.sonParalelos(v2));
     }
+	
+	@Test
+    public void test09crearDosVectoresConNumerosGrandesYFijarseSiSonParalelos(){
+        Vector v1=new Vector(1,8);
+        Vector v2=new Vector(5,40);
+        print_test("Pruebo paralelos con nuemeros grandes",v1.sonParalelos(v2));
+        assertTrue(v1.sonParalelos(v2));
+    }
+	
+	@Test
+    public void test07CrearVectoresYFijarseSiSonParalelosConCambioDeSigno(){
+        Vector v1=new Vector(-5,2);
+        Vector v2=new Vector(10,-4);
+        print_test("Crear vectores y fijarse si son paralelos con cambio de signo",v1.sonParalelos(v2));
+        assertTrue(v1.sonParalelos(v2));
+    }
+	
+	@Test(expected = AssertionError.class)
+    public void test07CrearVectoresYFijarseSiNoSonParalelosDebeFallar(){
+        Vector v1=new Vector(0,-2);
+        Vector v2=new Vector(1,74);
+        print_test("Crear vectores y fijarse si no son paralelos debe fallar",v1.sonParalelos(v2));
+        assertTrue(v1.sonParalelos(v2));
+    }
 
     @Test
     public void test08CrearVectorYDuplicarlo(){
