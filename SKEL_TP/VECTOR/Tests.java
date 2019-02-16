@@ -151,7 +151,7 @@ public class Tests {
     public void test07CrearVectoresYFijarseSiNoSonParalelosDebeFallar(){
         Vector v1=new Vector(0,-2);
         Vector v2=new Vector(1,74);
-        print_test("Crear vectores y fijarse si no son paralelos debe fallar",v1.sonParalelos(v2));
+        print_test("Crear vectores y fijarse si no son paralelos debe fallar",!v1.sonParalelos(v2));
         assertTrue(v1.sonParalelos(v2));
     }
 
