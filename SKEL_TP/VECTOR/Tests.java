@@ -122,6 +122,14 @@ public class Tests {
         print_test("CrearVectoresYFijarseSiSonParalelos",v1.sonParalelos(v2));
         assertTrue(v1.sonParalelos(v2));
     }
+	
+	@Test
+    public void test07CrearVectoresYFijarseSiSonParalelosConCerosEnSusCoordenadas(){
+        Vector v1=new Vector(0,-2);
+        Vector v2=new Vector(0,-4);
+        print_test("CrearVectoresYFijarseSiSonParalelosConCerosEnSusCoordenadas",v1.sonParalelos(v2));
+        assertTrue(v1.sonParalelos(v2));
+    }
 
     @Test
     public void test08CrearVectorYDuplicarlo(){
