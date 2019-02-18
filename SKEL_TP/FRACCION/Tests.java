@@ -20,11 +20,11 @@ public class Tests {
 	public void test01bisPruebaDelConstructorConCeroEnElDenominador(){
 		try{
 			Fraccion f1= new Fraccion(1,0);
-			print_test("Creo una fraccion inválida y el constructor debe fallar", f1==null);
+			print_test("Creo una fraccion invalida y el constructor debe fallar", f1==null);
 			assertTrue(f1==null);
 		}
 		catch(IllegalArgumentException e){
-			print_test("Creo una fraccion inválida y el constructor debe fallar", true);
+			print_test("Creo una fraccion invalida y el constructor debe fallar", true);
 		}
 
 	}
@@ -80,14 +80,14 @@ public class Tests {
 	@Test
 	public void test06CreoUnaFraccionYLaSimplifico(){
 		Fraccion f1= new Fraccion(2,4);
-		print_test("Simplifico una fraccion pequeña par", f1.es_igual(new Fraccion(1,2)));
+		print_test("Simplifico una fraccion chica par", f1.es_igual(new Fraccion(1,2)));
 		assertTrue(f1.es_igual(new Fraccion(1,2)));
 	}
 	
 	@Test
 	public void test07CreoUnaFraccionYLaSimplificoImpar(){
 		Fraccion f1= new Fraccion(7,21);
-		print_test("Simplifico una fraccion pequeña impar", f1.es_igual(new Fraccion(1,3)));
+		print_test("Simplifico una fraccion chica impar", f1.es_igual(new Fraccion(1,3)));
 		assertTrue(f1.es_igual(new Fraccion(1,3)));
 	}
 	
