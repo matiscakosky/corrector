@@ -200,7 +200,7 @@ public class Tests {
     @Test
     public void test08CrearVectorYDuplicarlo(){
         Vector vector1 = new Vector(10,-15);
-        vector1.multplicarPorEscalar(2);
+        vector1.multiplicarPorEscalar(2);
         Vector vecTest = new Vector(20,-30);
         print_test("Creo un vector y lo multplico por 2",vecTest.esIgual(vector1));
         assertTrue(vecTest.esIgual(vector1));
@@ -225,9 +225,9 @@ public class Tests {
     @Test
     public void testCreoVectoresYOperoParaLograrUnaMagnitud0(){
         Vector vector1 = new Vector(1,2);
-        vector1.multplicarPorEscalar(3);
+        vector1.multiplicarPorEscalar(3);
         vector1 = vector1.sumar(new Vector(-3,-6));
-        vector1.multplicarPorEscalar(100);
+        vector1.multiplicarPorEscalar(100);
         int magnitud = vector1.calcularMagnitud();
         print_test("opero para lograr una magnitud 0",magnitud==0);
         assertEquals(magnitud,0);
@@ -235,13 +235,13 @@ public class Tests {
     @Test
     public void testCreoVectoresYOperoParaLograrQueSeanParalelos(){
         Vector vector1 = new Vector(3,8);
-        vector1.multplicarPorEscalar(2);
+        vector1.multiplicarPorEscalar(2);
         vector1 =vector1.restar(new Vector(4,14));
 
         Vector vector2 = new Vector(0,0);
         vector2=vector2.sumar(new Vector(1,0));
         vector2=vector2.sumar(new Vector(0,1));
-        vector2.multplicarPorEscalar(50);
+        vector2.multiplicarPorEscalar(50);
         print_test("Creo dos vectores diferentes y opero hasta que sean paralelos",vector1.sonParalelos(vector2));
         assertTrue(vector1.sonParalelos(vector2));
     }

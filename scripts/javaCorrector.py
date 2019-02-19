@@ -57,7 +57,7 @@ class JavaCorrector4:
             self.borrar_archivo_de_directorio()
             
             if p1.returncode or p2.returncode or p3.returncode:
-                error = "Compilation problems : - " + p1.stderr.decode("utf-8") + "Execution problems : - " + p3.stderr.decode("utf-8")
+                error = "Compilation problems : - " + p1.stderr.decode("utf-8") + p2.stderr.decode("utf-8") + "Execution problems : - " + p3.stderr.decode("utf-8")
                 raise ErrorEntrega(error + '\n' + output)
                 
             return output
