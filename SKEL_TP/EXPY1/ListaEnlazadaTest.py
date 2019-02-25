@@ -20,16 +20,13 @@ class ListaEnlazada:
         nuevo = Nodo(x)
         
         if i == 0:
-            # Caso particular: insertar al principio
             nuevo.prox = self.prim
             self.prim = nuevo
         else:
-            # Buscar el nodo anterior a la posición deseada
             n_ant = self.prim
             for pos in range(1, i):
                 n_ant = n_ant.prox
         
-            # Intercalar el nuevo nodo
             nuevo.prox = n_ant.prox
             n_ant.prox = nuevo
         
