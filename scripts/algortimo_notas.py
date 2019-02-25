@@ -4,8 +4,8 @@ Algoritmo de calculo de notas - Taller de Desarrollo de sistemas.
 
 La materia tiene una forma definida y absoluta para el calculo de notas. Los criterios para aprobar la materia son:
     - Condicion necesaria de aprobacion: Todos los trabajos del trimestre y los examenes deben estar aprobados.
-    - La nota del corrector es binaria, es decir, aprobarlo signfica tener un OK. La nota no sube o baja por los mismos. Solo deben estar hechos
-    - Tener todos los trabajos hechos y aprobados suma +1 a la nota.
+    - Las ponderaciones del corrector son 3. TODO OK, TARDE, ERROR. Solo las primeras dos cuentan como aprobadas.
+    - Tener todos los trabajos hechos y aprobados en fecha (es decir, no hay tardes) suma +1 a la nota final.
     - No tener algun trabajo aprobado hace que la nota maxima del trimestre sea 5
     - Cualquier trabajo copiado hace que la nota maxima del trimestre sea 3
     - La nota base es un conjunto entre la nota del choice y el examen practico: puntajeObtenido* 0.4 + notaPractico * 0.6
@@ -18,12 +18,13 @@ PRACTICO = "PRACTICO1"
 TARDE="TARDE"
 
 #Lista de trabajos practicos del año
-TPS=["FRACCION","VECTOR","FIUGRA","POLIGONO","VEHICULO","COCINA","TPPY1","TPPY2","TPPY3","TPPY4","LISTA"]
+TPS=["FRACCION","VECTOR","MAZO","FIUGRA","POLIGONO","VEHICULO","COCINA","TPPY1","TPPY2","TPPY3","TPPY4","LISTA"]
 
 def calcular_nota_alumno(features):
-    """Recive un diccionario de features donde las claves son los trabajos o los examenes y los valores las notas. Devuelve una nota asociada """
+    """Recibe un diccionario de features donde las claves son los trabajos o los examenes y los valores las notas. Devuelve una nota asociada """
     
     maximo = 10
+	premio_todo_ok=1
     #Checkeo de trabajos practicos
     for k in features:
         if (k in TPS and not features[k]) or features[k]==ERROR:
@@ -32,7 +33,8 @@ def calcular_nota_alumno(features):
         maximo=3
     for k in features:
         if features[k]==TARDE:
-            maximo -= 0.5
+            premio_todo_ok = 0
+			break
         
     #Checkeo de examenes.
     
@@ -46,7 +48,7 @@ def calcular_nota_alumno(features):
     ajustable= gradiance*0.4 + practico*0.6
     nota_final = (ajustable/10)*maximo
     
-    return nota_final
+    return nota_final + premio_todo_ok
     
     
 

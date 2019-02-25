@@ -56,7 +56,7 @@ BIENVENIDA="Registro completado con éxito - Bienvenido a Taller de desarrollo d
 ALUMNO_INEXSISTENTE="ERROR: No se logro identificar al alumno revise si escribio bien su DNI"
 
 #Opciones del corrector
-JAVA_TPS=["FRACCION","VECTOR","FIUGRA","POLIGONO","VEHICULO","COCINA"]
+JAVA_TPS=["FRACCION","VECTOR","MAZO","FIUGRA","POLIGONO","VEHICULO","COCINA"]
 PY_TPS=["TPPY1","TPPY2","TPPY3","TPPY4","LISTA"]
 CONSULTAS=["NOTAS","REGISTRAR"]
 
