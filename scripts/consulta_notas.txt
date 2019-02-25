@@ -8,6 +8,6 @@ Nombre del Alumno: {}
 DNI: {}
 Email: {}
 Fecha de registro en el corrector: {}
-Curso: 6to TIC '{}'
+Curso: 5to TIC '{}'
 
 ---------------------- NOTAS ----------------------------------
