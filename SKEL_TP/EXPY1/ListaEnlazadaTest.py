@@ -9,13 +9,13 @@ class Nodo:
 
 class ListaEnlazada:
     def __init__(self):
-        """Crea una lista enlazada vacía."""
+
         self.prim = None
         self.len = 0
         
     def insertar_en_posicion(self, i, x):
         if i < 0 or i > self.len:
-            raise IndexError("Posición inválida")
+            raise IndexError("Posición invalida")
         
         nuevo = Nodo(x)
         
