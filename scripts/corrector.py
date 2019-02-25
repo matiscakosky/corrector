@@ -57,7 +57,7 @@ ALUMNO_INEXSISTENTE="ERROR: No se logro identificar al alumno revise si escribio
 
 #Opciones del corrector
 JAVA_TPS=["FRACCION","VECTOR","MAZO","FIUGRA","POLIGONO","VEHICULO","COCINA"]
-PY_TPS=["TPPY1","TPPY2","TPPY3","TPPY4","LISTA"]
+PY_TPS=["TPPY1","TPPY2","TPPY3","TPPY4","LISTA","EXPY1"]
 CONSULTAS=["NOTAS","REGISTRAR"]
 
 
