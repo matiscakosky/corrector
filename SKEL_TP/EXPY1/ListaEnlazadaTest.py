@@ -15,7 +15,7 @@ class ListaEnlazada:
         
     def insertar_en_posicion(self, i, x):
         if i < 0 or i > self.len:
-            raise IndexError("Posición invalida")
+            raise IndexError("Posicion invalida")
         
         nuevo = Nodo(x)
         
