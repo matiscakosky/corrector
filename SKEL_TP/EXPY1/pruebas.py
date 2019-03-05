@@ -18,7 +18,7 @@ def assert_ejercicio1_prueba1():
         test.print_test("la playlist 1 tiene 60 segundos de duracion", resul["p1"]==60 and len(resul)==1)
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
-        print("Fallo el test del punto 1 " + err)
+        print("Fallo el test del punto 1 {}".format(err))
         return 0
 
 def assert_ejercicio1_prueba2():
@@ -32,7 +32,7 @@ def assert_ejercicio1_prueba2():
         test.print_test("la playlist 1 tiene 240 segundos de duracion", resul["p1"]==240 and len(resul)==1)
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
-        print("Fallo el test del punto 1 " + err)
+        print("Fallo el test del punto 1 {}".format(err))
         return 0
 
 def assert_ejercicio1_prueba3():
@@ -46,7 +46,7 @@ def assert_ejercicio1_prueba3():
         test.print_test("Compruebo las duraciones de las playlist", resul["p1"]==240 and resul["p2"]==348 and resul["p3"]==298 and len(resul)==3)
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
-        print("Fallo el test del punto 1 " + err)
+        print("Fallo el test del punto 1 {}".format(err)))
         return 0
 
 def assert_ejercicio2_prueba1():
@@ -60,7 +60,7 @@ def assert_ejercicio2_prueba1():
         test.print_test("Las listas estan ordenadas iguales", l1==sorted(l2))
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
-        print("Fallo el test del punto 1 " + err)
+        print("Fallo el test del punto 1 {}".format(err))
         return 0
 
 def assert_ejercicio2_prueba2():
@@ -78,7 +78,7 @@ def assert_ejercicio2_prueba2():
         test.print_test("Compruebo que este ordenada la mediana", l1==sorted(l2))
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
-        print("Fallo el test del punto 2 " + err)
+        print("Fallo el test del punto 2 {}".format(err))
         return 0
 def assert_ejercicio2_prueba3():
     try:
@@ -95,7 +95,7 @@ def assert_ejercicio2_prueba3():
         test.print_test("Compruebo que este ordenada la grande", l1==sorted(l2))
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
-        print("Fallo el test del punto 2 " + err)
+        print("Fallo el test del punto 2 {}".format(err))
         return 0
 
 def assert_ejercicio3_prueba1():
@@ -119,7 +119,7 @@ def assert_ejercicio3_prueba1():
             actual=actual.prox
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
-        print("Fallo el test del punto 3 " + err)
+        print("Fallo el test del punto 3 {}".format(err))
         return 0
 def assert_ejercicio3_prueba2():
     try:
@@ -137,7 +137,7 @@ def assert_ejercicio3_prueba2():
             actual=actual.prox
         return 2 if (test.fails == fallos) else 0
     except Exception as err:
-        print("Fallo el test del punto 3 " + err)
+        print("Fallo el test del punto 3 {}".format(err))
         return 0
 def assert_ejercicio3_prueba3():
     try:
@@ -153,7 +153,7 @@ def assert_ejercicio3_prueba3():
         test.print_test("No se invierte la lista con un elemento",actual.dato=="Uva")
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
-        print("Fallo el test del punto 3 " + err)
+        print("Fallo el test del punto 3 {}".format(err))
         return 0        
     
 
