@@ -1,4 +1,4 @@
-from examenpy import *
+from expy1 import *
 from testing import show_test
 import random
 from ListaEnlazadaTest import ListaEnlazada
