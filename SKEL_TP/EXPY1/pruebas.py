@@ -19,6 +19,7 @@ def assert_ejercicio1_prueba1():
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
         print("Fallo el test del punto 1 {}".format(err))
+        test.print_test("la playlist 1 tiene 60 segundos de duracion", False)
         return 0
 
 def assert_ejercicio1_prueba2():
@@ -33,6 +34,7 @@ def assert_ejercicio1_prueba2():
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
         print("Fallo el test del punto 1 {}".format(err))
+        test.print_test("la playlist 1 tiene 240 segundos de duracion", False)
         return 0
 
 def assert_ejercicio1_prueba3():
@@ -47,6 +49,7 @@ def assert_ejercicio1_prueba3():
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
         print("Fallo el test del punto 1 {}".format(err))
+        test.print_test("Compruebo las duraciones de las playlist", False)
         return 0
 
 def assert_ejercicio2_prueba1():
@@ -61,6 +64,7 @@ def assert_ejercicio2_prueba1():
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
         print("Fallo el test del punto 1 {}".format(err))
+        test.print_test("Las listas estan ordenadas iguales", False)
         return 0
 
 def assert_ejercicio2_prueba2():
@@ -79,6 +83,7 @@ def assert_ejercicio2_prueba2():
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
         print("Fallo el test del punto 2 {}".format(err))
+        test.print_test("Compruebo que este ordenada la mediana", False)
         return 0
 def assert_ejercicio2_prueba3():
     try:
@@ -96,6 +101,7 @@ def assert_ejercicio2_prueba3():
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
         print("Fallo el test del punto 2 {}".format(err))
+        test.print_test("Compruebo que este ordenada la grande", False)
         return 0
 
 def assert_ejercicio3_prueba1():
@@ -120,6 +126,7 @@ def assert_ejercicio3_prueba1():
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
         print("Fallo el test del punto 3 {}".format(err))
+        test.print_test("Compruebo que este invertida la lista de 5 elementos", False)
         return 0
 def assert_ejercicio3_prueba2():
     try:
@@ -138,6 +145,7 @@ def assert_ejercicio3_prueba2():
         return 2 if (test.fails == fallos) else 0
     except Exception as err:
         print("Fallo el test del punto 3 {}".format(err))
+        test.print_test("Compruebo que este invertida la lista de 100 elementos", False)
         return 0
 def assert_ejercicio3_prueba3():
     try:
@@ -154,6 +162,7 @@ def assert_ejercicio3_prueba3():
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
         print("Fallo el test del punto 3 {}".format(err))
+        test.print_test("Compruebo que este invertida la lista de un elemento", False)
         return 0        
     
 
