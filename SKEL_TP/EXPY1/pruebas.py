@@ -46,7 +46,7 @@ def assert_ejercicio1_prueba3():
         test.print_test("Compruebo las duraciones de las playlist", resul["p1"]==240 and resul["p2"]==348 and resul["p3"]==298 and len(resul)==3)
         return 1 if (test.fails == fallos) else 0
     except Exception as err:
-        print("Fallo el test del punto 1 {}".format(err)))
+        print("Fallo el test del punto 1 {}".format(err))
         return 0
 
 def assert_ejercicio2_prueba1():
