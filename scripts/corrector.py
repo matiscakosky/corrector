@@ -126,7 +126,7 @@ def main():
     except EmailIncorrecto as err:
         registrar_entrega(wks,id_tp, id_alumno,EMAIL_FALSO)
         responder(msg,"EMAIL INCORRECTO: {}".format(err))
-        informar_posible_copia(msg,"Se ha detectado que {} a enviado un mail desde la casilla {}".format(buscar_nombre(wks,id_alumno),msg["From"])
+        informar_posible_copia(msg,"Se ha detectado que {} a enviado un mail desde la casilla {}".format(buscar_nombre(wks,id_alumno),msg["From"]))
         
     except zipfile.BadZipFile:
         responder(msg, "ERROR: {}".format(ZIP_DANIADO))
