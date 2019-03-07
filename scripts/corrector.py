@@ -26,6 +26,7 @@ from excepciones import TrabajoVencido
 from excepciones import AlumnoInexistente
 from pyCorrector import PyCorrector
 from vencimientos import LimiteDeEntrega
+from vencimientos import EmailIncorrecto
 from javaCorrector import JavaCorrector4
 from registro import registrar_alumno
 from registro import registrar_entrega
@@ -55,7 +56,7 @@ MENSAJE_ADVERTENCIA= "ADVERTENCIA: El trabjo práctico recientemente enviado no 
 MAL_REGISTRO="Un problema surgio con su registro/entrega. Revisar si llenó correctamente los campos del registro/entrega en el asunto del mail y vuelvalo a intentar. Su registro/entrega no fue tenida en cuenta"
 BIENVENIDA="Registro completado con éxito - Bienvenido a Taller de desarrollo de sistemas - TIC ORT Argentina"
 ALUMNO_INEXSISTENTE="ERROR: No se logro identificar al alumno revise si escribio bien su DNI"
-EMAIL_INCORRECTO = "El email remitente y el registrado no coinciden, enviar la entrega desde el mail que esta registrado"
+EMAIL_INCORRECTO = "El email remitente y el registrado no coinciden, enviar la entrega desde el mail que esta registrado. Enviar un trabajo de un mail no correcto se considera una falta grave y la misma se pondera como COPIA, ante dudas consultar al docente"
 
 
 #Opciones del corrector
@@ -63,6 +64,11 @@ JAVA_TPS=["FRACCION","VECTOR","MAZO","FIUGRA","POLIGONO","VEHICULO","COCINA","JA
 PY_TPS=["TPPY1","TPPY2","TPPY3","TPPY4","LISTA","EXPY1"]
 CONSULTAS=["NOTAS","REGISTRAR"]
 
+#Notas
+APROBO="OK"
+DESAPROBO="ERROR"
+TARDE= "TARDE"
+EMAIL_FALSO="COPIA"
 
 def escuchar():
     while(True):
@@ -91,13 +97,17 @@ def main():
         corrector=cargar_correctores(id_tp,str(skel_dir),zip_adjunto)
         print("llego una entrega bien")
         
+        nota=APROBO
         limitador = checkear_vencimiento_tp(skel_dir,obtener_fecha_mensaje(msg["Date"]))
-        if limitador.advertencia: responder(msg,MENSAJE_ADVERTENCIA) #fijarse de empalmarlo con el otro mail
+
+        if limitador.advertencia:
+            responder(msg,MENSAJE_ADVERTENCIA) #fijarse de empalmarlo con el otro mail
+            nota=TARDE
         
         output=corrector.corregir()
         
-        responder(msg, "Todo OK: {}".format(output))
-        registrar_entrega(wks,id_tp, id_alumno,True,limitador.advertencia)
+        responder(msg, "TODO OK: {}".format(output))
+        registrar_entrega(wks,id_tp, id_alumno,nota)
         
         moss = Moss(id_tp, buscar_nombre(wks,id_alumno), obtener_fecha_mensaje(msg["Date"]), zip_adjunto)
         moss.guardar_directorio()
@@ -111,13 +121,17 @@ def main():
         
     except TrabajoVencido as err:
         responder(msg, "TRABAJO VENCIDO: {}".format(err))
+
+    except EmailIncorrecto as err:
+        registrar_entrega(wks,id_tp, id_alumno,DESAPROBO)
+        responder(msg,"EMAIL INCORRECTO: {}".format(err))
         
     except zipfile.BadZipFile:
         responder(msg, "ERROR: {}".format(ZIP_DANIADO))
     
     except ErrorEntrega as err:
         if id_tp and id_alumno:
-            registrar_entrega(wks,id_tp, id_alumno,False)
+            registrar_entrega(wks,id_tp, id_alumno,DESAPROBO)
         responder(msg, "ERROR: {}".format(err))
         
     except RuntimeError as err:
@@ -199,7 +213,7 @@ def buscar_alumno(wks,subject):
 
 def verificar_email(msg,wks,id_alumno):
     if (msg["From"] != buscar_email(wks,id_alumno)):
-        raise ErrorEntrega(EMAIL_INCORRECTO)
+        raise EmailIncorrecto(EMAIL_INCORRECTO)
         
 if __name__ == "__main__":
   main()

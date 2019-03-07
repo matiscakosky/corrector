@@ -12,3 +12,7 @@ class TrabajoVencido(Exception):
 class AlumnoInexistente(Exception):
     """Excepcion para manejar los trabajos de alumnos que no estan registrados
     """
+
+class EmailIncorrecto(Exception):
+	"""Excepcion para manejar los trabajos de alumnos que no estan registrados
+	"""
