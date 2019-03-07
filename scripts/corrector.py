@@ -24,9 +24,9 @@ from fetch import obtener_fecha_mensaje
 from excepciones import ErrorEntrega
 from excepciones import TrabajoVencido
 from excepciones import AlumnoInexistente
+from excepciones import EmailIncorrecto
 from pyCorrector import PyCorrector
 from vencimientos import LimiteDeEntrega
-from vencimientos import EmailIncorrecto
 from javaCorrector import JavaCorrector4
 from registro import registrar_alumno
 from registro import registrar_entrega
