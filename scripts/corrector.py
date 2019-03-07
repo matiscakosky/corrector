@@ -21,6 +21,7 @@ from fetch import revisar
 from fetch import responder
 from fetch import takeAttachment
 from fetch import obtener_fecha_mensaje
+from fetch import informar_posible_copia
 from excepciones import ErrorEntrega
 from excepciones import TrabajoVencido
 from excepciones import AlumnoInexistente
@@ -125,6 +126,7 @@ def main():
     except EmailIncorrecto as err:
         registrar_entrega(wks,id_tp, id_alumno,EMAIL_FALSO)
         responder(msg,"EMAIL INCORRECTO: {}".format(err))
+        informar_posible_copia(msg,"Se ha detectado que {} a enviado un mail desde la casilla {}".format(buscar_nombre(wks,id_alumno),msg["From"])
         
     except zipfile.BadZipFile:
         responder(msg, "ERROR: {}".format(ZIP_DANIADO))

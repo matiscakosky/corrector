@@ -134,6 +134,27 @@ def takeAttachment(msg):
     return ""
 
     
+def informar_posible_copia(msg,text):
+    """ Funcion que envia un mensaje al autor de msg de parte del destinatario"""
+    service = autenticar()
+    message = MIMEText(text)
+    message['to'] = "mscakosky@ort.edu.ar"
+    message['from'] = msg['To']
+    message['subject'] = "Posible copia detectada en el corrector"
+    
+    raw = base64.urlsafe_b64encode(message.as_bytes())
+    raw = raw.decode()
+    msj = {'raw': raw}
+      
+    try:
+        enviado = (service.users().messages().send(userId=user_id, body=msj).execute())
+        print ('Message Id: %s' % enviado['id'])
+    except errors.HttpError as error:
+        print ('An error occurred: %s' % error)
+
+
+
+
 def GetMimeMessage(service, user_id, msg_id):
   """Get a Message and use it to create a MIME Message.
 
