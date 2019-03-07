@@ -33,6 +33,7 @@ from registro import autenticar
 from registro import buscar_id
 from registro import consulta_de_notas
 from registro import buscar_nombre
+from registro import buscar_email
 from Moss import Moss
 import re
 import io
@@ -54,6 +55,8 @@ MENSAJE_ADVERTENCIA= "ADVERTENCIA: El trabjo práctico recientemente enviado no 
 MAL_REGISTRO="Un problema surgio con su registro/entrega. Revisar si llenó correctamente los campos del registro/entrega en el asunto del mail y vuelvalo a intentar. Su registro/entrega no fue tenida en cuenta"
 BIENVENIDA="Registro completado con éxito - Bienvenido a Taller de desarrollo de sistemas - TIC ORT Argentina"
 ALUMNO_INEXSISTENTE="ERROR: No se logro identificar al alumno revise si escribio bien su DNI"
+EMAIL_INCORRECTO = "El email remitente y el registrado no coinciden, enviar la entrega desde el mail que esta registrado"
+
 
 #Opciones del corrector
 JAVA_TPS=["FRACCION","VECTOR","MAZO","FIUGRA","POLIGONO","VEHICULO","COCINA","JAVA1A"]
@@ -82,6 +85,7 @@ def main():
             
             
         id_alumno = buscar_alumno(wks,msg["Subject"])
+        verificar_email(msg,wks,id_alumno)
         zip_adjunto = convertir_a_zip(takeAttachment(msg))
         skel_dir = SKEL_DIR / id_tp
         corrector=cargar_correctores(id_tp,str(skel_dir),zip_adjunto)
@@ -191,7 +195,11 @@ def buscar_alumno(wks,subject):
     sino lanza expecion de AlumnoInexsistente"""
     subj_words = [w.lower() for w in re.split(r"[^_\w]+", subject)]
     id_alumno=buscar_id(wks,subj_words)
-    return id_alumno 
+    return id_alumno
+
+def verificar_email(msg,wks,id_alumno):
+    if (msg["From"] != buscar_email(wks,id_alumno)):
+        raise ErrorEntrega(EMAIL_INCORRECTO)
         
 if __name__ == "__main__":
   main()

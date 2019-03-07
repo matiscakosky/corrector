@@ -72,7 +72,13 @@ def buscar_nombre(wks, id_alumno):
     celdaAlumno = wks.find(id_alumno)
     celdaNombre = wks.cell(celdaAlumno.row,1) #Esta en la fila del alumno y columna 1
     return celdaNombre.value
-    return
+
+
+def buscar_email(wks, id_alumno):
+    """Dado un token de spreadsheet y un id_alumno busca el email ubicado en la quinta columna"""
+    celdaAlumno = wks.find(id_alumno)
+    celdaMail = wks.cell(celdaAlumno.row,5) #Esta en la fila del alumno y columna 5
+    return celdaMail.value
 
 
 def consulta_de_notas(wks,id_alumno):
