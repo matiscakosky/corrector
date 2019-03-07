@@ -123,7 +123,7 @@ def main():
         responder(msg, "TRABAJO VENCIDO: {}".format(err))
 
     except EmailIncorrecto as err:
-        registrar_entrega(wks,id_tp, id_alumno,DESAPROBO)
+        registrar_entrega(wks,id_tp, id_alumno,EMAIL_FALSO)
         responder(msg,"EMAIL INCORRECTO: {}".format(err))
         
     except zipfile.BadZipFile:
