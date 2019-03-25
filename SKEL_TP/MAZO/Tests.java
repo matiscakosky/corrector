@@ -360,5 +360,6 @@ public class Tests {
             res="ERROR";
         }
         System.out.printf("%s...%s \n", msg,res);
+        assertTrue(ok);
     }
 }

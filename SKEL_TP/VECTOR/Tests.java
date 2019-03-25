@@ -265,8 +265,8 @@ public class Tests {
         else{   
             res="ERROR";
         }
-        assertTrue(ok);
         System.out.printf("%s...%s \n", msg,res);
+        assertTrue(ok);
     }
 
 
