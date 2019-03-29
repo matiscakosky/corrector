@@ -37,9 +37,25 @@ public class Tests {
 		print_test("Creo dos fracciones y son iguales",f1.es_igual(f2));
 		assertTrue(f1.es_igual(f2));
 	}
+
+	@Test
+	public void test02bisACreoDosFraccionesIgualesDeConstructoresDiferentes(){
+		Fraccion f1= new Fraccion(2,4);
+		Fraccion f2= new Fraccion(1,2);
+		print_test("Creo dos fracciones con parametros diferentes en el constructor y son iguales (2/4 = 1/2)",f1.es_igual(f2));
+		assertTrue(f1.es_igual(f2));
+	}
+
+	@Test
+	public void test02bisBCreoDosFraccionesIgualesDeConstructoresDiferentes(){
+		Fraccion f1= new Fraccion(-2,4);
+		Fraccion f2= new Fraccion(1,-2);
+		print_test("Creo dos fracciones con parametros diferentes en el constructor y son iguales (-2/4 = 1/-2)",f1.es_igual(f2));
+		assertTrue(f1.es_igual(f2));
+	}
 	
 	@Test
-	public void test02bisCreoDosFraccionesYComprueboQueSeanIgualesConSigno(){
+	public void test02bisCCreoDosFraccionesYComprueboQueSeanIgualesConSigno(){
 		Fraccion f1= new Fraccion(-1,-2);
 		Fraccion f2= new Fraccion(1,2);
 		print_test("Creo dos fracciones y son iguales, una de las dos tiene ambos argumentos negativos",f1.es_igual(f2));
