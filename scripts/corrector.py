@@ -92,7 +92,7 @@ def main():
             
             
         id_alumno = buscar_alumno(wks,msg["Subject"])
-        verificar_email(msg,wks,id_alumno)
+        #verificar_email(msg,wks,id_alumno)
         zip_adjunto = convertir_a_zip(takeAttachment(msg))
         skel_dir = SKEL_DIR / id_tp
         corrector=cargar_correctores(id_tp,str(skel_dir),zip_adjunto)
