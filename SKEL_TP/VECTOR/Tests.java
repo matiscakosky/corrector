@@ -12,8 +12,16 @@ public class Tests {
     public void test01CrearDosVectoresIgualesDebenSerElMismo(){
         Vector vector1 = new Vector(1,2);
         Vector vector2 = new Vector(1,2);
-        print_test("Crear dis vectiores iguales y deben ser el mismo",vector1.esIgual(vector2));
+        print_test("Crear dos vectiores iguales y deben ser el mismo",vector1.esIgual(vector2));
         assertTrue(vector1.esIgual(vector2));
+    }
+
+
+    @Test
+    public void test01bisCrearDosVectoresDiferentesEsIgualEsFalse(){
+        Vector vector1 = new Vector(1,2);
+        Vector vector2 = new Vector(1,3);
+        print_test("Crear dos vectiores iguales y deben ser el mismo",!vector1.esIgual(vector2));
     }
 
     @Test
