@@ -11,22 +11,30 @@ public class Tests {
 	public void test01ComprueboQueAlCrearUnaCartaSeMuestreCorrectamente(){
 		Carta c = new Carta(1,"ESPADA");
 		print_test("Compruebo que la carta se muestre correctamente", c.toString().contentEquals("1 de ESPADA"));
-		assertTrue(c.toString().contentEquals("1 de ESPADA"));
+		
 	}
 	
 	@Test
 	public void test01bisCreoDosCartasSonIguales(){
 		Carta c1 = new Carta(1,"ESPADA");
 		Carta c2 = new Carta(1,"ESPADA");
-		print_test("Compruebo que la carta se muestre correctamente", c1.equals(c2));
-		assertTrue(c1.equals(c2));
+		print_test("Creo dos cartas iguales", c1.equals(c2));
+		
+	}
+
+		@Test
+	public void test01bisCreoDosCartasDiferentes(){
+		Carta c1 = new Carta(1,"ESPADA");
+		Carta c2 = new Carta(2,"ESPADA");
+		print_test("Creo dos cartas diferentes", !c1.equals(c2));
+		
 	}
 	
 	@Test
 	public void test02ComprueboQueAlCrearUnaCartaSeMuestreCorrectamente2daPrueba(){
 		Carta c = new Carta(10,"ORO");
 		print_test("Compruebo que otra carta se muestre correctamente", c.toString().contentEquals("10 de ORO"));
-		assertTrue(c.toString().contentEquals("10 de ORO"));
+		
 	}
 	
 	@Test
@@ -34,7 +42,7 @@ public class Tests {
 		try {
 			Carta c = new Carta(8,"ORO");
 			print_test("Creo una carta invalida, palo invalido, debe fallar", false);
-			assertTrue(false);
+			
 		} catch (IllegalArgumentException e) {
 			print_test("Creo una carta invalida, debe fallar, numero 8", true);
 		}
@@ -45,7 +53,7 @@ public class Tests {
 		try {
 			Carta c = new Carta(9,"ORO");
 			print_test("Creo una carta invalida, palo invalido, debe fallar", false);
-			assertTrue(false);
+			
 		} catch (IllegalArgumentException e) {
 			print_test("Creo una carta invalida, numero 9, debe fallar", true);
 		}
@@ -56,7 +64,7 @@ public class Tests {
 		try {
 			Carta c = new Carta(-9,"ORO");
 			print_test("Creo una carta invalida, palo invalido, debe fallar", false);
-			assertTrue(false);
+			
 		} catch (IllegalArgumentException e) {
 			print_test("Creo una carta invalida, numero negativo, debe fallar", true);
 		}
@@ -77,7 +85,7 @@ public class Tests {
 		try {
 			Carta c = new Carta(10,"PICAS");
 			print_test("Creo una carta invalida, palo invalido, debe fallar", false);
-				assertTrue(false);
+				
 		} catch (IllegalArgumentException e) {
 			print_test("Creo una carta invalida, palo invalido, debe fallar", true);
 		}
@@ -88,7 +96,7 @@ public class Tests {
 		try {
 			Carta c = new Carta(150,"PICAS");
 			print_test("Creo una carta invalida, palo y numero invalidos, debe fallar", false);
-				assertTrue(false);
+				
 		} catch (IllegalArgumentException e) {
 			print_test("Creo una carta invalida, palo y numero invalidos, debe fallar", true);
 		}
