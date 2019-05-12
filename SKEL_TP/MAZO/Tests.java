@@ -34,7 +34,6 @@ public class Tests {
 	public void test02ComprueboQueAlCrearUnaCartaSeMuestreCorrectamente2daPrueba(){
 		Carta c = new Carta(10,"ORO");
 		print_test("Compruebo que otra carta se muestre correctamente", c.toString().contentEquals("10 de ORO"));
-		
 	}
 	
 	@Test
