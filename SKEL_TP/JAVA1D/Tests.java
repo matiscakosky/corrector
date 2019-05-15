@@ -30,7 +30,7 @@ public class Tests {
     	Asiento a = new Asiento(0,0,10);
     	print_test("El asiento arranca libre",a.esta_vacio());
     	a.ocupar();
-    	print_test("El asiento arranca libre",!a.esta_vacio());
+    	print_test("Ocupo ese asiento",!a.esta_vacio());
     	if(!a.esta_vacio()){nota+=0.5;}
 
     }
