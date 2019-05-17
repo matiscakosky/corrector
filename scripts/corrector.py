@@ -61,7 +61,7 @@ EMAIL_INCORRECTO = "El email remitente y el registrado no coinciden, enviar la e
 
 
 #Opciones del corrector
-JAVA_TPS=["FRACCION","VECTOR","MAZO","FIUGRA","POLIGONO","VEHICULO","COCINA","JAVA1A"]
+JAVA_TPS=["FRACCION","VECTOR","MAZO","FIUGRA","POLIGONO","VEHICULO","COCINA","JAVA1A","JAVA1B","JAVA1C","JAVA1D"]
 PY_TPS=["TPPY1","TPPY2","TPPY3","TPPY4","LISTA","EXPY1"]
 CONSULTAS=["NOTAS","REGISTRAR"]
 
@@ -180,7 +180,7 @@ def cargar_correctores(id_tp=None,skel_dir=None,zip_adjunto=None):
         el archivo zip adjuntado en el mail"""
     if id_tp in PY_TPS:
         return PyCorrector(id_tp=id_tp,skel_dir=skel_dir,zip_tp=zip_adjunto)
-    elif id_tp in JAVA_TPS:
+    else:
         return JavaCorrector4(id_tp=id_tp,skel_dir=skel_dir,zip_tp=zip_adjunto)
     
 
