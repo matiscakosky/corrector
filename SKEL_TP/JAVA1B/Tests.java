@@ -37,11 +37,11 @@ public class Tests {
             Kiosco a = new Kiosco();
             a.agregarCaramelo(c1);
             a.agregarCaramelo(c2);
-            print_test("Agrego un producto repetido a la estantería y falla: ",false);
+            print_test("Agrego un producto repetido a la estanteria y falla: ",false);
             assertTrue(false);
         }
         catch (IllegalArgumentException e){
-            print_test("Agrego un producto repetido a la estantería y falla: ",true);
+            print_test("Agrego un producto repetido a la estanteria y falla: ",true);
             nota+=1;
         }
 
