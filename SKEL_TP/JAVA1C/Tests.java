@@ -107,6 +107,7 @@ public class Tests {
 		}
     	boolean condition= contdef==def&&contmed==med&&contdel==del;
     	print_test("Creo una seleccion con jugadores random, bien asignadas las posciones: ",condition);
+        if(condition)nota+=0.5;
     }
     
     @Test
