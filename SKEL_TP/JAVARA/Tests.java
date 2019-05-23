@@ -68,6 +68,7 @@ public class Tests {
         if (condition) nota+=1;
     }
 
+    @Test
     public void test05PrueboNormalizarUnVectorDeNormaUno(){
         System.out.println("Test 5 - Valor: 1 ptos");
         Vector v = new Vector(1.0/Math.sqrt(2),1.0/Math.sqrt(2));
