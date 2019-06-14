@@ -451,7 +451,7 @@ public class Tests {
 	@Test
 	public void test37CreoUnLavarropasUsandoElConstructoPorDefecto(){
 		Electrodomestico e = new Lavarropas();
-		boolean condition = e.getPrecioBase() == 5000 && e.getColor().equals("BLANCO") && e.getConsumoElectrico().equals("E") && e.getPeso() == 20 && e.getVoltaje() == 220 && ((Lavarropas) e).getCarga()==10;
+		boolean condition = e.getPrecioBase() == 5000 && e.getColor().equals("BLANCO") && e.getConsumoElectrico().equals("D") && e.getPeso() == 20 && e.getVoltaje() == 220 && ((Lavarropas) e).getCarga()==10;
 		print_test("Nuevo Lavarropas usando el constructor por defecto", condition);
 		
 	}
