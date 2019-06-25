@@ -661,23 +661,23 @@ public class Tests {
 	public void test57ComprueboPrecioDeLavarropasDefault(){
 		Electrodomestico e = new Lavarropas();
 		int precio = e.precioFinal();
-		print_test("Compruebo el precio del Lavarropas por default", precio==501000);
+		print_test("Compruebo el precio del Lavarropas por default", precio==401000);
 	}
 
 	@Test
 	public void test58ComprueboPrecioLavarropasFijandoElPrecioVariandoElPeso(){
 		Electrodomestico e1 = new Lavarropas(5000, 80);
 		int precio = e1.precioFinal();
-		print_test("Compruebo el precio del Lavarropas de base $5000 y 80kg", precio==532000);
+		print_test("Compruebo el precio del Lavarropas de base $5000 y 80kg", precio==432000);
 		e1 = new Lavarropas(5000, 50);
 		precio = e1.precioFinal();
-		print_test("Compruebo el precio del Lavarropas de base $5000 y 50kg", precio==510000);
+		print_test("Compruebo el precio del Lavarropas de base $5000 y 50kg", precio==410000);
 		e1 = new Lavarropas(5000, 20);
 		precio = e1.precioFinal();
-		print_test("Compruebo el precio del Lavarropas de base $5000 y 20kg", precio==501000);
+		print_test("Compruebo el precio del Lavarropas de base $5000 y 20kg", precio==401000);
 		e1 = new Lavarropas(5000, 10);
 		precio = e1.precioFinal();
-		print_test("Compruebo el precio del Lavarropas de base $5000 y 10kg", precio==500500);
+		print_test("Compruebo el precio del Lavarropas de base $5000 y 10kg", precio==400500);
 		
 	}
 
@@ -685,16 +685,16 @@ public class Tests {
 	public void test59ComprueboPrecioLavarropasFijandoElPesoVariandoElPrecio(){
 		Electrodomestico e1 = new Lavarropas(500, 30);
 		int precio = e1.precioFinal();
-		print_test("Compruebo el precio del Lavarropas de base $500 y 30kg", precio==53000);
+		print_test("Compruebo el precio del Lavarropas de base $500 y 30kg", precio==43000);
 		e1 = new Lavarropas(1000, 30);
 		precio = e1.precioFinal();
-		print_test("Compruebo el precio del Lavarropas de base $1000 y 30kg", precio==103000);
+		print_test("Compruebo el precio del Lavarropas de base $1000 y 30kg", precio==83000);
 		e1 = new Lavarropas(3500, 30);
 		precio = e1.precioFinal();
-		print_test("Compruebo el precio del Lavarropas de base $3500 y 30kg", precio==353000);
+		print_test("Compruebo el precio del Lavarropas de base $3500 y 30kg", precio==283000);
 		e1 = new Lavarropas(7000, 30);
 		precio = e1.precioFinal();
-		print_test("Compruebo el precio del Lavarropas de base $7000 y 30kg", precio==703000);
+		print_test("Compruebo el precio del Lavarropas de base $7000 y 30kg", precio==563000);
 	}
 	
 	@Test
