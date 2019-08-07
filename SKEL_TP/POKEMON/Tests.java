@@ -8,49 +8,49 @@ import java.util.Random;
 
 public class Tests {
 	//Declaro las constantes
-	final int VIDA_HOOH=500;
-	final int VIDA_ARTICUNO=450;
-	final int VIDA_LAPRAS=450;
-	final int VIDA_TREECKO=90;
-	final int VIDA_ENTEI=350;
+	final double VIDA_HOOH=500;
+	final double VIDA_ARTICUNO=450;
+	final double VIDA_LAPRAS=450;
+	final double VIDA_TREECKO=90;
+	final double VIDA_ENTEI=350;
 	
-	final int ATAQUE_HOOH=350;
-	final int ATAQUE_ARTICUNO=250;
-	final int ATAQUE_LAPRAS=150;
-	final int ATAQUE_TREECKO=90;
-	final int ATAQUE_ENTEI=300;
+	final double ATAQUE_HOOH=350;
+	final double ATAQUE_ARTICUNO=250;
+	final double ATAQUE_LAPRAS=150;
+	final double ATAQUE_TREECKO=90;
+	final double ATAQUE_ENTEI=300;
 	
-	final int DEFENSA_HOOH=150;
-	final int DEFENSA_ARTICUNO=200;
-	final int DEFENSA_LAPRAS=300;
-	final int DEFENSA_TREECKO=120;
-	final int DEFENSA_ENTEI=100;
+	final double DEFENSA_HOOH=150;
+	final double DEFENSA_ARTICUNO=200;
+	final double DEFENSA_LAPRAS=300;
+	final double DEFENSA_TREECKO=120;
+	final double DEFENSA_ENTEI=100;
 	
 
-	final int VELOCIDAD_HOOH=150;
-	final int VELOCIDAD_ARTICUNO=200;
-	final int VELOCIDAD_LAPRAS=50;
-	final int VELOCIDAD_TREECKO=150;
-	final int VELOCIDAD_ENTEI=250;
+	final double VELOCIDAD_HOOH=150;
+	final double VELOCIDAD_ARTICUNO=200;
+	final double VELOCIDAD_LAPRAS=50;
+	final double VELOCIDAD_TREECKO=150;
+	final double VELOCIDAD_ENTEI=250;
 		
 
-	final int RESISTENCIA_HOOH=10;
-	final int RESISTENCIA_ARTICUNO=9;
-	final int RESISTENCIA_LAPRAS=4;
-	final int RESISTENCIA_TREECKO=2;
-	final int RESISTENCIA_ENTEI=8;
+	final double RESISTENCIA_HOOH=10;
+	final double RESISTENCIA_ARTICUNO=9;
+	final double RESISTENCIA_LAPRAS=4;
+	final double RESISTENCIA_TREECKO=2;
+	final double RESISTENCIA_ENTEI=8;
 
 
-	final int PODER_LLAMARADA = 20;
-	final int PODER_SOFOCO = 50;
-	final int PODER_VENTISCA = 50;
-	final int PODER_ATAQUEDEALA = 10;
-	final int PODER_TORNADO= 5;
-	final int PODER_SURF= 15;
-	final int PODER_HIDROBOMBA=30;
-	final int PODER_LATIGOCEPA= 20;
-	final int PODER_HOJAAGUDA=35;
-	final int PODER_INFINITO=1000000;
+	final double PODER_LLAMARADA = 20;
+	final double PODER_SOFOCO = 50;
+	final double PODER_VENTISCA = 50;
+	final double PODER_ATAQUEDEALA = 10;
+	final double PODER_TORNADO= 5;
+	final double PODER_SURF= 15;
+	final double PODER_HIDROBOMBA=30;
+	final double PODER_LATIGOCEPA= 20;
+	final double PODER_HOJAAGUDA=35;
+	final double PODER_INFINITO=1000000;
 	
 	final int USOS_HOJA_AGUDA=5;
 	
@@ -737,7 +737,7 @@ public class Tests {
 		p = h.intentar_capturar();
 		p = h.intentar_capturar();
 		
-		double res = VIDA_HOOH * 0.7;
+		double res = 1 - 0.7;
 		print_test("Creo un nuevo Pokemon, calculo la probabilidad de captura cuando el pkmn no tiene resistencia", p==res);
 	}
 	
@@ -745,40 +745,36 @@ public class Tests {
 	@Test
 	public void test40ComprueboIntentarCapturarHoOhSinVidaConResistencia(){
 		Pokemon h = new HoOh();
-		double p = h.intentar_capturar();
 		h.restarVida(VIDA_HOOH-1);
-		p = h.intentar_capturar();
-		double res = 1/VIDA_HOOH + RESISTENCIA_HOOH * 0.3;
+		double p = h.intentar_capturar();
+		double res = 1 - (1 / VIDA_HOOH * 0.7 + 0.3);
 		print_test("Calculo la probabilidad de captura cuando Ho-Oh no tiene vida, pero si resistencia", p==res);
 	}
 	
 	@Test
 	public void test41ComprueboIntentarCapturarArticunoSinVidaConResistencia(){
 		Pokemon h = new Articuno();
-		double p = h.intentar_capturar();
 		h.restarVida(VIDA_ARTICUNO-1);
-		p = h.intentar_capturar();
-		double res = 1/VIDA_ARTICUNO + RESISTENCIA_ARTICUNO * 0.3;
+		double p = h.intentar_capturar();
+		double res = 1 - (1 / VIDA_ARTICUNO * 0.7 + 0.3);
 		print_test("Calculo la probabilidad de captura cuando Articuno no tiene vida, pero si resistencia", p==res);
 	}
 	
 	@Test
 	public void test42ComprueboIntentarCapturarLaprasSinVidaConResistencia(){
 		Pokemon h = new Lapras();
-		double p = h.intentar_capturar();
 		h.restarVida(VIDA_LAPRAS-1);
-		p = h.intentar_capturar();
-		double res = 1/VIDA_LAPRAS + RESISTENCIA_LAPRAS * 0.3;
+		double p = h.intentar_capturar();
+		double res = 1 - ((1/VIDA_LAPRAS)*0.7 + 0.3);
 		print_test("Calculo la probabilidad de captura cuando Lapras no tiene vida, pero si resistencia", p==res);
 	}
 	
 	@Test
 	public void test43ComprueboIntentarCapturarTreeckoSinVidaConResistencia(){
 		Pokemon h = new Treecko();
-		double p = h.intentar_capturar();
 		h.restarVida(VIDA_TREECKO-1);
-		p = h.intentar_capturar();
-		double res = 1/VIDA_TREECKO + RESISTENCIA_TREECKO * 0.3;
+		double p = h.intentar_capturar();
+		double res = 1 - ((1/VIDA_TREECKO)*0.7 + 0.3);
 		print_test("Calculo la probabilidad de captura cuando Treecko no tiene vida, pero si resistencia", p==res);
 	}
 	
@@ -786,24 +782,23 @@ public class Tests {
 	@Test
 	public void test44ComprueboIntentarCapturarEnteiSinVidaConResistencia(){
 		Pokemon h = new Entei();
-		double p = h.intentar_capturar();
 		h.restarVida(VIDA_ENTEI-1);
-		p = h.intentar_capturar();
-		double res = 1/VIDA_ENTEI + RESISTENCIA_ENTEI * 0.3;
+		double p = h.intentar_capturar();
+		double res = 1 - ((1/VIDA_ENTEI)*0.7 + 0.3);
 		print_test("Calculo la probabilidad de captura cuando Entei no tiene vida, pero si resistencia", p==res);
 	}
 	
 	@Test
 	public void test45CalculoProbabilidadCapturaEnCasoGeneralConRandomHoOh(){
 		Pokemon p = new HoOh();
-		int intentos = getRandomNumberInRange(0, RESISTENCIA_HOOH);
-		int restar = getRandomNumberInRange(0, VIDA_HOOH);
+		int intentos = getRandomNumberInRange(0, (int)	RESISTENCIA_HOOH);
+		int restar = getRandomNumberInRange(0, (int)VIDA_HOOH);
 		double prob=0;
 		p.restarVida(restar);
 		for (int i = 0; i < intentos; i++) {
 			prob=p.intentar_capturar();
 		}
-		double res = 0.7*((VIDA_HOOH-restar)/VIDA_HOOH)+ ((RESISTENCIA_HOOH-intentos)/RESISTENCIA_HOOH) * 0.3;
+		double res = 1 - (((VIDA_HOOH-restar)/VIDA_HOOH) * 0.7 + ((RESISTENCIA_HOOH-(intentos - 1))/RESISTENCIA_HOOH) * 0.3);
 		print_test("Despues de "+ intentos +" intentos y con vida "+ p.getVida()+" la probabilidad de captura es correcta",prob==res);
 	}
 	
@@ -959,7 +954,7 @@ public class Tests {
 		
 		double potenciaDeAtaque = h.getAtaque() * PODER_LLAMARADA / h.getVelocidad();
 		double defensa=l.defender(potenciaDeAtaque);
-		double vidaActual= VIDA_HOOH - potenciaDeAtaque + defensa; 
+		double vidaActual= VIDA_LAPRAS - potenciaDeAtaque + defensa; 
 		print_test("El jugador 1 realizo el ataque correcto",vidaActual==l.getVida());	
 	}
 	
@@ -973,7 +968,7 @@ public class Tests {
 		
 		double potenciaDeAtaque = h.getAtaque() * PODER_TORNADO / h.getVelocidad();
 		double defensa=l.defender(potenciaDeAtaque);
-		double vidaActual= VIDA_HOOH - potenciaDeAtaque + defensa; 
+		double vidaActual= VIDA_LAPRAS - potenciaDeAtaque + defensa; 
 		 
 		print_test("El jugador 1 realizo el ataque 4 correctamente",vidaActual==l.getVida());
 		
@@ -1002,7 +997,7 @@ public class Tests {
 		
 		double potenciaDeAtaque = h.getAtaque() * PODER_LLAMARADA / h.getVelocidad();
 		double defensa=l.defender(potenciaDeAtaque);
-		double vidaActual= VIDA_HOOH - potenciaDeAtaque + defensa; 
+		double vidaActual= VIDA_LAPRAS - potenciaDeAtaque + defensa; 
 		print_test("El jugador 2 realizo el ataque correcto",vidaActual==l.getVida());	
 	}
 	
@@ -1016,7 +1011,7 @@ public class Tests {
 		
 		double potenciaDeAtaque = h.getAtaque() * PODER_TORNADO / h.getVelocidad();
 		double defensa=l.defender(potenciaDeAtaque);
-		double vidaActual= VIDA_HOOH - potenciaDeAtaque + defensa; 
+		double vidaActual= VIDA_LAPRAS - potenciaDeAtaque + defensa; 
 		 
 		print_test("El jugador 2 realizo el ataque 4 correctamente",vidaActual==l.getVida());
 		
@@ -1066,7 +1061,7 @@ public class Tests {
 		
 		double potenciaDeAtaque = h.getAtaque() * PODER_LLAMARADA / h.getVelocidad();
 		double defensa=l.defender(potenciaDeAtaque);
-		double vidaActual= VIDA_HOOH - potenciaDeAtaque + defensa; 
+		double vidaActual= VIDA_LAPRAS - potenciaDeAtaque + defensa; 
 		print_test("El jugador 1 realizo el ataque correcto",vidaActual==l.getVida());	
 	}
 	
@@ -1080,7 +1075,7 @@ public class Tests {
 		
 		double potenciaDeAtaque = h.getAtaque() * PODER_TORNADO / h.getVelocidad();
 		double defensa=l.defender(potenciaDeAtaque);
-		double vidaActual= VIDA_HOOH - potenciaDeAtaque + defensa; 
+		double vidaActual= VIDA_LAPRAS - potenciaDeAtaque + defensa; 
 		 
 		print_test("El jugador 1 realizo el ataque 4 correctamente",vidaActual==l.getVida());
 		
@@ -1109,7 +1104,7 @@ public class Tests {
 		
 		double potenciaDeAtaque = h.getAtaque() * PODER_LLAMARADA / h.getVelocidad();
 		double defensa=l.defender(potenciaDeAtaque);
-		double vidaActual= VIDA_HOOH - potenciaDeAtaque + defensa; 
+		double vidaActual= VIDA_LAPRAS - potenciaDeAtaque + defensa; 
 		print_test("El jugador 2 realizo el ataque correcto",vidaActual==l.getVida());	
 	}
 	
@@ -1123,7 +1118,7 @@ public class Tests {
 		
 		double potenciaDeAtaque = h.getAtaque() * PODER_TORNADO / h.getVelocidad();
 		double defensa=l.defender(potenciaDeAtaque);
-		double vidaActual= VIDA_HOOH - potenciaDeAtaque + defensa; 
+		double vidaActual= VIDA_LAPRAS - potenciaDeAtaque + defensa; 
 		 
 		print_test("El jugador 2 realizo el ataque 4 correctamente",vidaActual==l.getVida());
 		
@@ -1162,7 +1157,7 @@ public class Tests {
 		print_test("No hay ningun debilitado, no hay ganador",g == null);
 	}
 	
-	@Test 
+	//@Test 
 	public void test70integracionFinal(){
 		String s ="Genero una batalla salvaje y capturo al segundo pokemon, intento volver a generar una batalla salvaje con el mismo";
 		Lapras t = new Lapras();
