@@ -1157,7 +1157,7 @@ public class Tests {
 		print_test("No hay ningun debilitado, no hay ganador",g == null);
 	}
 	
-	//@Test 
+	@Test 
 	public void test70integracionFinal(){
 		String s ="Genero una batalla salvaje y capturo al segundo pokemon, intento volver a generar una batalla salvaje con el mismo";
 		Lapras t = new Lapras();
