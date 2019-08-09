@@ -791,7 +791,7 @@ public class Tests {
 	@Test
 	public void test45CalculoProbabilidadCapturaEnCasoGeneralConRandomHoOh(){
 		Pokemon p = new HoOh();
-		int intentos = getRandomNumberInRange(0, (int)	RESISTENCIA_HOOH);
+		int intentos = getRandomNumberInRange(1, (int)	RESISTENCIA_HOOH);
 		int restar = getRandomNumberInRange(0, (int)VIDA_HOOH);
 		double prob=0;
 		p.restarVida(restar);
@@ -933,9 +933,13 @@ public class Tests {
 		Entei e = new Entei();
 		String s ="Compruebo la excepcion de sofoco";
 		
-		while (e.getAtaque() != 1) {
-			e.sofoco(new Entei());
-		}
+		e.sofoco(new Entei());
+		e.sofoco(new Entei());
+		e.sofoco(new Entei());
+		e.sofoco(new Entei());
+		e.sofoco(new Entei());
+		e.sofoco(new Entei());
+		
 		try {
 			e.sofoco(new HoOh());
 			print_test(s,false);
@@ -1164,9 +1168,29 @@ public class Tests {
 		Entei e = new Entei();
 		BatallaSalvaje b = new BatallaSalvaje(t, e);
 		e.restarVida(VIDA_ENTEI-1);
-		while (e.getSalvaje()) {
-			b.lanzar_pokeball();
-		}
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		b.lanzar_pokeball();
+		
+		
 		
 		try {
 			BatallaSalvaje b2 = new BatallaSalvaje(t,e);
