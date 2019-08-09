@@ -7,12 +7,12 @@ El programa corre con python 3.6 o superior.
 Deben instalarse varias librerías. Algunas de ellas:
 
 #### Variables de entorno
-Deben colocarse las variables de entorno
+Deben colocarse las variables de entorno\n
 SKEL_DIR -> A donde esten los trabajos practicos y sus pruebas 
 MOSS_DIR -> A donde esten guardados los trabajos de los alumnos
 junit -> A java/junit.jar (Valido para JUNIT 4) 
 hamcrest-> A java/hamcrest.jar (Valido para JUNIT 4)
-PASS -> Github
+
 
 ### Java y Junit
 ```bash
@@ -23,4 +23,22 @@ sudo apt install oracle-java8-set-default
 javac -version
 ```
 
+### API de Gmail
+Si no se tiene instalado pip3, instalarlo previamente 
+```bash
+sudo apt install pip3
+pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
+pip3 install --upgrade oauth2client 
+```
+
+### API de SpreadSheets
+```bash
+pip3 install gspread
+```
+
+
+### API de git
+```bash
+pip3 install gitpython
+```
 
