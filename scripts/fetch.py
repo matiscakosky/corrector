@@ -24,6 +24,7 @@ import datetime
 user_id =  'me'
 label_id_one = 'INBOX' #Etiqueta de bandeja a fetchear
 label_id_two = 'UNREAD' #Etiqueta de estado de mail a fetchear
+label_id_three = 'SPAM' #Etiqueta de bandeja a fetchear
 SCOPES=["https://www.googleapis.com/auth/gmail.modify","https://www.googleapis.com/auth/gmail.compose","https://www.googleapis.com/auth/gmail.send"]
 
 class NoHayMensajesNuevos(Exception):
@@ -94,7 +95,7 @@ def revisar_nuevos_no_leidos(service):
     Pre-condiciones: El token GMAIL esta creado y autenticado
     Post-condiciones: Devuelve un mensaje (en forma de diccionario)
     """
-    unread_msgs = service.users().messages().list(userId='me',labelIds=[label_id_one, label_id_two], maxResults=1).execute()
+    unread_msgs = service.users().messages().list(userId='me',labelIds=[label_id_one, label_id_two, label_id_three], maxResults=1,includeSpamTrash=True).execute()
     mssg_list = unread_msgs.get('messages',[])
     if (not len(mssg_list)): raise NoHayMensajesNuevos("No hay mensajes nuevos en este momento")
     return mssg_list[0]
