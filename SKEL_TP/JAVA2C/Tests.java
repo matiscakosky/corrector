@@ -25,9 +25,10 @@ public class Tests {
     @Test
     public void test02ComprueboElAreaDeCirculo() {
     	System.out.println("Test 2 - Valor: 0.5 pto");
-    	Circulo c = new Circulo(5);
+    	double RADIO=5;
+    	Circulo c = new Circulo(RADIO);
     	double area = c.area();
-    	boolean condition = area == (Math.PI * c.radio * c.radio);
+    	boolean condition = area == (Math.PI * RADIO * RADIO);
     	print_test("El circulo calcula correctamente el area",condition);
     	if(condition) nota+=0.5;
     }
