@@ -1,5 +1,5 @@
-from tppy2 import *
-from testing import show_test
+import tppy1
+from tppy1 import *
 from testing import show_test
 import random
 import traceback
@@ -676,3 +676,5 @@ def main():
 
 if __name__ == "__main__":
   main()
+
+
