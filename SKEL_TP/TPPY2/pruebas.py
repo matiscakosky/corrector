@@ -120,7 +120,7 @@ def ejercicio2_test2():
         error_by_except(s,err)
         
 def ejercicio2_test3():
-    s="Compruebo todos los numeros en un rango pequeño de hasta 4 bits"
+    s="Compruebo todos los numeros en un rango de hasta 4 bits"
     print(s)
     fourbits = [1,2,4,8,16]
     try:
