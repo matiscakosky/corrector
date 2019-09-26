@@ -7,7 +7,7 @@ from excepciones import ErrorEntrega
 import shutil
 
 COMANDOS = ["python","pruebas.py"]
-TIMEOUT = 5
+TIMEOUT = 30
 
 class PyCorrector:
     """Corrector de python

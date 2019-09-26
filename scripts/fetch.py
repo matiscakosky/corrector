@@ -98,7 +98,7 @@ def revisar_nuevos_no_leidos(service):
     unread_msgs = service.users().messages().list(userId='me',labelIds=[label_id_two], maxResults=1,includeSpamTrash=True).execute()
     mssg_list = unread_msgs.get('messages',[])
     if (not len(mssg_list)): raise NoHayMensajesNuevos("No hay mensajes nuevos en este momento")
-    return mssg_list[0]
+    return mssg_list[-1]
     #Si quiero que devuelva todos los no leidos quito el parametro maxResults=1 de .list() y hago return mssg_list (Ojo como lo manejas mas arriba)
 
 def obtener_fecha_mensaje(date_str):
