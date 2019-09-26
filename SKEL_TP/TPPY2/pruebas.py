@@ -87,11 +87,11 @@ def ejercicio1_test7():
         
 def ejercicio1_test8():
     s="Dos listas obtenidas a partir de numeros diferentes son iguales debido a que los primos son los mismos"
-    test_resul0=primos_well_done(101000)
-    test_resulf=primos_well_done(100999)
+    test_resul0=primos_well_done(103)
+    test_resulf=primos_well_done(104)
     try:
-        resul0 = primos(101000)
-        resulf = primos(100999)
+        resul0 = primos(103)
+        resulf = primos(104)
         test.print_test(s,resul0==test_resul0 and resulf==test_resulf)
                 
     except Exception as err:
