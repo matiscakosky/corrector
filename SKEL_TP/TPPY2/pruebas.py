@@ -33,7 +33,7 @@ def ejercicio1_test2():
         
 
 def ejercicio1_test3():
-    s="La lista de primos hasta 2 es la lista vacia"
+    s="La lista de primos hasta 2 contiene al primer numero primo, un unico elemento"
     test_resul=primos_well_done(2)
     try:
         resul = primos_well_done(2)
@@ -43,7 +43,7 @@ def ejercicio1_test3():
         error_by_except(s,err)
 
 def ejercicio1_test4():
-    s="La lista de primos hasta 3 contiene al primer numero primo, un unico elemento"
+    s="La lista de primos hasta 3 comienza el caso general"
     test_resul=primos_well_done(3)
     try:
         resul = primos(3)
