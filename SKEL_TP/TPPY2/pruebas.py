@@ -36,7 +36,7 @@ def ejercicio1_test3():
     s="La lista de primos hasta 2 contiene al primer numero primo, un unico elemento"
     test_resul=primos_well_done(2)
     try:
-        resul = primos_well_done(2)
+        resul = primos(2)
         test.print_test(s,resul==test_resul)
                 
     except Exception as err:
