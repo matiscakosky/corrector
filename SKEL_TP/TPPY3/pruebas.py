@@ -190,7 +190,7 @@ def measure_mem(func):
     return usage - process_usage 
 
 def ejercicio3_test1():
-    s = "Invierto la lista vacía, devuelve la lista vacía"
+    s = "Invierto la lista vacia, devuelve la lista vacia"
     try:
         test.print_test(s, invertir([]) == [])
     except Exception as err:
@@ -230,7 +230,7 @@ def DL6_CALL():
     invertir_inplace(DL6_ARG)
     
 def ejercicio3_test6():
-    s = "Invierto inplace la lista vacía, devuelve la lista vacía y usa poca memoria"
+    s = "Invierto inplace la lista vacia, devuelve la lista vacia y usa poca memoria"
     try:
         mem = measure_mem(DL6_CALL)
         test.print_test(s, DL6_ARG == DL6_RES and mem < 1)
