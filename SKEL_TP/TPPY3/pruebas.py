@@ -1,4 +1,6 @@
 from tppy3_wd import *
+from tppy3 import _map
+from tppy3 import _filter
 from tppy3 import *
 from testing import show_test
 import traceback
