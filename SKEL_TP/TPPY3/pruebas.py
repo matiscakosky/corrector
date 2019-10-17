@@ -83,7 +83,7 @@ def ejercicio1_test7():
     s="Tomo una lista de 100 elementos al azar y compruebo sus repeticiones"
     lista=[]
     for i in range(100):
-        lista.append(random.randint(0,3))
+        lista.append(random.randint(1,4))
     test_resul=repeticiones_consecutivas_wd(lista)
     try:
         resul = repeticiones_consecutivas(lista)
