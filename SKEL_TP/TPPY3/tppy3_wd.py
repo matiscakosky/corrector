@@ -3,9 +3,6 @@ from memory_profiler import memory_usage
 from memory_profiler import profile
 import gc
 
-lista1= list(range(5000000))
-lista2= list(range(5000000))
-lista3= list(range(5000000))
 """
 def measure_mem(func):
     gc.collect()

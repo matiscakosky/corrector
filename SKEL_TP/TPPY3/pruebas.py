@@ -452,7 +452,6 @@ def main():
     print("")
     print("Ejercicio 3")
    
-    
     ejercicio3_test1()
     ejercicio3_test2()
     ejercicio3_test3()
@@ -465,7 +464,7 @@ def main():
     ejercicio3_test10()
     
     print("")
-    print("Ejercicio 4")    
+    print("Ejercicio 4")   
     
     
     
