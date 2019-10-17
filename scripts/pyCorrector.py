@@ -6,7 +6,7 @@ import zipfile
 from excepciones import ErrorEntrega
 import shutil
 
-COMANDOS = ["python","pruebas.py"]
+COMANDOS = ["python3.6","pruebas.py"]
 TIMEOUT = 30
 
 class PyCorrector:
