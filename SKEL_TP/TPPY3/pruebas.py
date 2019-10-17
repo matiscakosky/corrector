@@ -4,8 +4,15 @@ from testing import show_test
 import traceback
 import math
 import gc
+
+#import sys
+#sys.path.append("/usr/local/lib/python3.6/dist-packages")
+
+
 from memory_profiler import memory_usage
 import random
+
+
 test=show_test()
 
 def ejercicio1_test1():

@@ -1,7 +1,7 @@
-from memory_profiler import memory_usage
+#from memory_profiler import memory_usage
 
-from memory_profiler import profile
-import gc
+#from memory_profiler import profile
+#import gc
 
 """
 def measure_mem(func):
