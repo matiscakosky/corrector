@@ -69,6 +69,7 @@ def repeticiones_consecutivas_wd(L):
             final.append((anterior,cont))
             anterior=elem
             cont=1
+    L.remove(None)
     return final
 
 def _map(funct,obj):
