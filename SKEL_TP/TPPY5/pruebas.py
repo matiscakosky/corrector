@@ -137,7 +137,7 @@ def linked_list_test_9():
   s = "Pruebo imprimir una lista vacia"
   try:
     test_list = LinkedList()
-    test.print_test(s, '[]' == test_list)
+    test.print_test(s, '[]' == test_list.__str__())
   except Exception as err:
     error_by_except(s, err)
     
