@@ -64,6 +64,7 @@ EMAIL_INCORRECTO = "El email remitente y el registrado no coinciden, enviar la e
 JAVA_TPS=["FRACCION","VECTOR","MAZO","FIUGRA","POLIGONO","VEHICULO","COCINA","JAVA1A","JAVA1B","JAVA1C","JAVA1D"]
 PY_TPS=["TPPY1","TPPY2","TPPY3","TPPY4","LISTA","EXPY1"]
 CONSULTAS=["NOTAS","REGISTRAR"]
+EXAMENES_VIEJOS = ["JAVA1A","JAVA1B","JAVA1C","JAVA1D","JAVARA","JAVA2A","JAVA2B","JAVA2C","JAVA2D"]
 
 #Notas
 APROBO="OK"
@@ -108,6 +109,12 @@ def main():
         output=corrector.corregir()
         
         responder(msg, "TODO OK: {}".format(output))
+        
+        #No registrar entregas de examenes viejos
+        if(id_tp in EXAMENES_VIEJOS):
+            return
+        
+        
         registrar_entrega(wks,id_tp, id_alumno,nota)
         
         moss = Moss(id_tp, buscar_nombre(wks,id_alumno), obtener_fecha_mensaje(msg["Date"]), zip_adjunto)
