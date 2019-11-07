@@ -64,7 +64,7 @@ EMAIL_INCORRECTO = "El email remitente y el registrado no coinciden, enviar la e
 JAVA_TPS=["FRACCION","VECTOR","MAZO","FIUGRA","POLIGONO","VEHICULO","COCINA","JAVA1A","JAVA1B","JAVA1C","JAVA1D"]
 PY_TPS=["TPPY1","TPPY2","TPPY3","TPPY4","LISTA","EXPY1"]
 CONSULTAS=["NOTAS","REGISTRAR"]
-EXAMENES_VIEJOS = ["JAVA1A","JAVA1B","JAVA1C","JAVA1D","JAVARA","JAVA2A","JAVA2B","JAVA2C","JAVA2D"]
+NO_REGISTRABLES = ["JAVA1A","JAVA1B","JAVA1C","JAVA1D","JAVARA","JAVA2A","JAVA2B","JAVA2C","JAVA2D"]
 
 #Notas
 APROBO="OK"
@@ -111,7 +111,7 @@ def main():
         responder(msg, "TODO OK: {}".format(output))
         
         #No registrar entregas de examenes viejos
-        if(id_tp in EXAMENES_VIEJOS):
+        if(id_tp in NO_REGISTRABLES):
             return
         
         
@@ -140,7 +140,8 @@ def main():
     
     except ErrorEntrega as err:
         if id_tp and id_alumno:
-            registrar_entrega(wks,id_tp, id_alumno,DESAPROBO)
+            if id_tp not in NO_REGISTRABLES:
+                registrar_entrega(wks,id_tp, id_alumno,DESAPROBO)
         responder(msg, "ERROR: {}".format(err))
         
     except RuntimeError as err:
