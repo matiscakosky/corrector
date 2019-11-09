@@ -7,6 +7,7 @@ import math
 # from TPPY5Test import Node, LinkedList
 from tppy5 import Nodo as Node, ListaEnlazada as LinkedList
 
+
 test=show_test()
 
 errors = {
@@ -73,8 +74,18 @@ def linked_list_test_3():
   try:
     test_list = LinkedList()
     test_list.insert(0, value)
-    # test.print_test(s, test_list.head.v == value)    
-    test.print_test(s, test_list.prim.v == value and test_list.prim.next is None)
+    integrity = check_list_integrity(test_list, 1)
+    def custom_test():
+      if not integrity:
+        return errors["integrity"]
+      return ""
+
+    def custom_test2():
+      if test_list.prim.v == value and test_list.prim.next is None:
+        return ""
+      return errors["assert"]  
+    
+    test.print_test(s, test_runner(custom_test2(), custom_test()))
   except Exception as err:
     error_by_except(s, err)
 
@@ -85,7 +96,18 @@ def linked_list_test_4():
     test_list = LinkedList()
     test_list.insert(0, 2)
     test_list.insert(1, value)
-    test.print_test(s, check_list_is_correct(test_list.prim, 2, [2, value]))
+
+    def custom_test():
+      if check_list_is_correct(test_list.prim, 2, [2, value]):
+        return ""
+      return errors["assert"]
+    
+    def custom_test2():
+      if check_list_integrity(test_list, 2):
+        return ""
+      return errors["integrity"]
+    test.print_test(s, test_runner(custom_test(), custom_test2()))
+
   except Exception as err:
     error_by_except(s, err)
 
@@ -94,9 +116,19 @@ def linked_list_test_5():
   element = 69
   try:
     test_list = LinkedList()
-    many_append(test_list, element, random.randint(2, 20))
+    length = random.randint(2, 20)
+    many_insert(test_list, element, length)
+    def custom_test():
+      if check_list_is_correct(test_list.prim, element):
+        return ""
+      return errors["assert"]
+    
+    def custom_test2():
+      if check_list_integrity(test_list, length):
+        return ""
+      return errors["integrity"]
     # test.print_test(s, check_list_is_correct(test_list.prim, element))
-    test.print_test(s, check_list_is_correct(test_list.prim, element))
+    test.print_test(s, test_runner(custom_test2(), custom_test()))
   except Exception as err:
     error_by_except(s, err)
 
@@ -137,7 +169,7 @@ def linked_list_test_9():
   s = "Pruebo imprimir una lista vacia"
   try:
     test_list = LinkedList()
-    test.print_test(s, '[]' == test_list.__str__())
+    test.print_test(s, '[]' == str(test_list))
   except Exception as err:
     error_by_except(s, err)
     
@@ -235,8 +267,11 @@ def linked_list_test_16():
     test_list = LinkedList()
     many_append(test_list, value_1, 10)
     test_list.insert(10, value_2)
+    was_error_thrown = False
+    
     index = test_list.index("El 8N es la fiesta de gestion de tic")
-    test.print_test(s, index is None)
+    was_error_thrown = not index
+    test.print_test(s, was_error_thrown)
   except Exception as err:
     error_by_except(s, err)
 
@@ -254,6 +289,17 @@ def linked_list_test_17():
       test_list.remove("ESTE TEXTO NO ESTA")
     except ValueError as err:
       error_was_thrown = True
+
+    def custom_test():
+      if error_was_thrown:
+        return ""
+      return errors["assert"]
+    
+    def custom_test1():
+      if check_list_integrity(test_list, 11):
+        return ""
+      return errors["integrity"]
+
     test.print_test(s, error_was_thrown)
     #SI NO HAY QUE RAISEAR VALUE ERROR
     # test_list.remove("ESTE TEXTO NO ESTA")
@@ -586,6 +632,176 @@ def linked_list_test_36():
   except Exception as err:
     error_by_except(s, err)
 
+def linked_list_test_37():
+  s = "Pruebo hacer 8 inserts uno detras del otro e inserto devuelta dentro de la lista"
+  value_1 = "Boomer"
+  value_2 = "Ok"
+  try:
+    test_list = LinkedList()
+    many_insert(test_list, value_2, 8)
+    test_list.insert(2, value_1)
+    correct_list = []
+    for i in range(0, 9):
+      if i == 2:
+        correct_list.append(value_1)
+      else:
+        correct_list.append(value_2)
+    def custom_test():
+      if check_list_is_correct(test_list.prim, value_2, correct_list):
+        return ""
+      return errors["assert"]
+    
+    def custom_test2():
+      if check_list_integrity(test_list, 9):
+        return ""
+      return errors["integrity"]
+    
+    test.print_test(s, test_runner(custom_test(), custom_test2()))
+  except Exception as err:
+    error_by_except(s, err)
+
+def linked_list_test_38():
+  s = "Pruebo hacer 8 inserts uno detras del otro e inserto en la ultima posicion"
+  value_1 = "Boomer"
+  value_2 = "Ok"
+  try:
+    test_list = LinkedList()
+    many_insert(test_list, value_2, 8)
+    test_list.insert(7, value_1)
+    correct_list = []
+    for i in range(0, 9):
+      if i == 7:
+        correct_list.append(value_1)
+      else:
+        correct_list.append(value_2)
+    def custom_test():
+      if check_list_is_correct(test_list.prim, value_2, correct_list):
+        return ""
+      return errors["assert"]
+    
+    def custom_test2():
+      if check_list_integrity(test_list, 9):
+        return ""
+      return errors["integrity"]
+    
+    test.print_test(s, test_runner(custom_test(), custom_test2()))
+  except Exception as err:
+    error_by_except(s, err)
+
+def linked_list_test_39():
+  s = "Pruebo hacer 8 inserts uno detras del otro e inserto en la primera posicion"
+  value_1 = "Boomer"
+  value_2 = "Ok"
+  try:
+    test_list = LinkedList()
+    many_insert(test_list, value_2, 8)
+    test_list.insert(0, value_1)
+    correct_list = []
+    for i in range(0, 9):
+      if i == 0:
+        correct_list.append(value_1)
+      else:
+        correct_list.append(value_2)
+    def custom_test():
+      if check_list_is_correct(test_list.prim, value_1, correct_list):
+        return ""
+      return errors["assert"]
+    
+    def custom_test2():
+      if check_list_integrity(test_list, 9):
+        return ""
+      return errors["integrity"]
+    
+    test.print_test(s, test_runner(custom_test(), custom_test2()))
+  except Exception as err:
+    error_by_except(s, err)
+
+def linked_list_test_40():
+  s = "Pruebo hacer 8 inserts uno detras del otro e inserto en la segunda posicion"
+  value_1 = "Boomer"
+  value_2 = "Ok"
+  try:
+    test_list = LinkedList()
+    many_insert(test_list, value_2, 8)
+    test_list.insert(1, value_1)
+    correct_list = []
+    for i in range(0, 9):
+      if i == 1:
+        correct_list.append(value_1)
+      else:
+        correct_list.append(value_2)
+    def custom_test():
+      if check_list_is_correct(test_list.prim, value_2, correct_list):
+        return ""
+      return errors["assert"]
+    
+    def custom_test2():
+      if check_list_integrity(test_list, 9):
+        return ""
+      return errors["integrity"]
+    
+    test.print_test(s, test_runner(custom_test(), custom_test2()))
+  except Exception as err:
+    error_by_except(s, err)
+
+def linked_list_test_41():
+  s = "Hago un pop del ultimo elemento de la lista con indice"
+  value_1 = "Esto"
+  value_2 = "No esta todo ok"
+  try:
+    test_list = LinkedList()
+    correct_list = []
+    for i in range(0, 3):
+      test_list.append(value_1)
+      test_list.append(value_2)
+      correct_list.append(value_1)
+      correct_list.append(value_2)
+    
+    correct_popped = []
+    test_popped = []
+    for i in range(0, 3):
+      correct_popped.append(correct_list.pop(len(correct_list)-1))
+      test_popped.append(test_list.pop(len(test_list) - 1))
+    
+    def custom_test():
+      if correct_popped == test_popped:
+        return ""
+      return errors["assert"]
+
+    def custom_test2():
+      if check_list_is_correct(test_list.prim, value_1, correct_list):
+        return ""
+      return errors["assert"]
+    
+    def custom_test3():
+      if check_list_integrity(test_list, 3):
+        return ""
+      return errors["integrity"]
+
+    test.print_test(s, test_runner(custom_test(), custom_test2(), custom_test3()))
+  except Exception as err:
+    error_by_except(s, err)
+
+def linked_list_test_42():
+  s="Pruebo hacer un index de un elemento que ya borre"
+  value_1 = "Esta?"
+  value_2 = "O no esta?"
+  try:
+    test_list = LinkedList()
+    many_append(test_list, value_1, 4)
+    many_append(test_list, value_2, 1)
+    many_append(test_list, value_1, 4)
+    test_list.remove(value_2)
+    def custom_test():
+      index = test_list.index(value_2)
+      if index is not None:
+        return errors["assert"]
+      return ""
+
+    test.print_test(s, test_runner(custom_test()))
+  except Exception as err:
+    error_by_except(s, err) 
+
 """ HELPER FUNCTIONS """
 
 # Funcion que llena una lista de un elemento n veces
@@ -638,7 +854,13 @@ def length(linked_list, length):
 def index(linked_list, element = None, index = None):
     result = False
     if index is None:
-      result = linked_list.index(None) is None
+      """
+      try:
+        result = linked_list.index(None)
+      except IndexError:
+        result = True
+      """
+      result = not linked_list.index(element)
     elif index is not None:
       result = index == linked_list.index(element)
     return "" if result else errors["index"]
@@ -649,21 +871,26 @@ def main():
   print("")
 
   excepciones_de_corrector="""
-  Cuando haces remove de un elemento que no existe, tira Value Error
-  Las listas se imprimen de forma ['hola', 'soy', 'mati'] CON espacios entre elementos
+----Aclaraciones--------------------------------------------------------------------------
+Cuando haces remove de un elemento que no existe, tira Value Error
+Cuando haces un index de un elemento que no existe, devuelve None
 
-  Si la lista se imprime con [hola, soy, mati], es incorrecta. Utilizar la funcion repr(elemento de la lista a imprimir) de python al crear CADA elemento del string. Osea en vez de usar str, usen repr
+Las listas se imprimen de forma ['hola', 'soy', 'mati'] CON espacios entre elementos
 
-  Llamar v, next a los atributos del Nodo
+Si la lista se imprime con [hola, soy, mati], es incorrecta. Utilizar la funcion repr(elemento de la lista a imprimir) de python al crear CADA elemento del string. Osea en vez de usar str, usen repr
 
-  Llamar prim, ult a los atributos de la Lista Enlazada
+Llamar v, next a los atributos del Nodo
 
-  Todos los ultimos nodos de la lista enlazada tienen que apuntar a None.
-  
-  Para errores de timeout es muy probable que esten en el append
-  Para errores de integridad hay que estar atento a que el ultimo elemento de la lista (ult) se mantenga actualizado
+Llamar prim, ult a los atributos de la Lista Enlazada
+
+Todos los ultimos nodos de la lista enlazada tienen que apuntar a None.
+
+Para errores de timeout es muy probable que esten en el append
+Para errores de integridad hay que estar atento a que el ultimo elemento de la lista (ult) se mantenga actualizado, osea que apunte al nodo correcto
+------------------------------------------------------------------------------------------
   """
   print(excepciones_de_corrector)
+  print("\n \n")
 
   print("NODO")
   node_test_1()
@@ -691,6 +918,10 @@ def main():
   linked_list_test_4()
   linked_list_test_5()
   linked_list_test_10()
+  linked_list_test_37()
+  linked_list_test_38()
+  linked_list_test_39()
+  linked_list_test_40()
   # linked_list_test_23() #TARDA MUCHO
 
   print(" \n")
@@ -699,6 +930,7 @@ def main():
   linked_list_test_2()
   linked_list_test_6()
   linked_list_test_7()
+  linked_list_test_42()
 
   print(" \n")
 
@@ -718,13 +950,15 @@ def main():
   linked_list_test_29()
   linked_list_test_34()
   linked_list_test_35()
+  linked_list_test_41()
 
   print(" \n")
 
   print("INDEX")
   linked_list_test_15()
   linked_list_test_16()
-
+  linked_list_test_42()
+  
   print(" \n")
 
   print("REMOVE")
@@ -747,5 +981,5 @@ def main():
   print("\n" * 500 + "Frootloops, Done By ArangShih")
   return
 
-# if __name__ == "__main__":
-main()
+if __name__ == "__main__":
+  main()
