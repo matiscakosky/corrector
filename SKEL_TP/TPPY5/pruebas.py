@@ -930,7 +930,6 @@ Para errores de integridad hay que estar atento a que el ultimo elemento de la l
   linked_list_test_2()
   linked_list_test_6()
   linked_list_test_7()
-  linked_list_test_42()
 
   print(" \n")
 
@@ -958,7 +957,7 @@ Para errores de integridad hay que estar atento a que el ultimo elemento de la l
   linked_list_test_15()
   linked_list_test_16()
   linked_list_test_42()
-  
+
   print(" \n")
 
   print("REMOVE")
