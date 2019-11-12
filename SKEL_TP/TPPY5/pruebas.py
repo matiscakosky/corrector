@@ -977,7 +977,7 @@ Para errores de integridad hay que estar atento a que el ultimo elemento de la l
   if test.fails != 0:
     raise Exception("ERROR: Hubo fallos " + str(test.fails) + " en los asserts del TP. Revisar")
 
-  print("\n" * 500 + "Frootloops, Done By ArangShih")
+  print("\n" * 5 + "Frootloops, Done By ArangShih")
   return
 
 if __name__ == "__main__":
