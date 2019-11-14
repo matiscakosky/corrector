@@ -19,7 +19,7 @@ def validar_wd(nom,ape,password):
     return False
         
      
-def invertir(self):
+def invertir_wd(self):
     if(self.len==0 or self.len==1):
         return
     prev = None
