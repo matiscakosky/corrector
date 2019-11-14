@@ -1,4 +1,4 @@
-def es_triang_superior(M):
+def es_triang_superior_wd(M):
     for i in range(len(M)):
         for j in range(len(M)):
             if(j<i and M[i][j] != 0): return False

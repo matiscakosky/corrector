@@ -254,7 +254,7 @@ def check_list_integrity(linked_list, length):
     current = current.next
     if current is not None:
       last_element = current
-  return length == index and (last_element is linked_list.ult)
+  return length == index
 
 def error_by_except(s,err):
         test.print_test(s, False)
