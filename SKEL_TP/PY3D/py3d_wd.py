@@ -9,9 +9,9 @@ def terminan_con_wd(s):
     dic={}
     l = s.split()
     for palabra in l:
-        lista_pal=dic.get(palabra[0],[])
+        lista_pal=dic.get(palabra[-1],[])
         lista_pal.append(palabra)
-        dic[palabra[0]]=lista_pal
+        dic[palabra[-1]]=lista_pal
     return dic
 
 
