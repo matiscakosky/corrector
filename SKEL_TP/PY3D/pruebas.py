@@ -41,7 +41,7 @@ def ejercicio1_test3():
     valor=.5
     m1=[[21,1,1],[1,24,0],[1,1,25]]
     try:
-        test.print_test(s, not es_triang_superior(m1))
+        test.print_test(s, False == es_triang_superior(m1))
         return valor if (test.fails == fallos) else 0
     except Exception as err:
         error_by_except(s,err)
@@ -54,7 +54,7 @@ def ejercicio1_test4():
     valor=.5
     m1=[[0,0],[1,3]]
     try:
-        test.print_test(s, not es_triang_superior(m1))
+        test.print_test(s, False == es_triang_superior(m1))
         return valor if (test.fails == fallos) else 0
     except Exception as err:
         error_by_except(s,err)
