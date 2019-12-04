@@ -1,4 +1,4 @@
-from py3b import *
+from pyn3c import *
 from py3b_wd import *
 from testing import show_test
 from ListaEnlazadaTest import Nodo as Nodo
