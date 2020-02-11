@@ -91,6 +91,15 @@ git clone https://github.com/matiscakosky/tps_alumnos .
 
 ## Anexos
 ### Ejecución por SSH del servidor AWS
+Requisitos:
+* El archivo .pem que se descarga por única vez de AWS.  Ej: file.pem
+* La public DNS id del server. Ej: ec2-35-173-242-106.compute-1.amazonaws.com 
+
+Guardar el .pem en algún directorio, luego en la terminal, de ese directorio escribir.
+```bash
+ssh -i file.pem ubuntu@ec2-35-173-242-106.compute-1.amazonaws.com
+```
+
 ### Terminal de AWS sin colores (Ubuntu 18 LTS)
 Si la terminal que se ejecuta desde ubuntu por SSH no tiene colores, se debe abrir el bash_profile.
 ```bash
