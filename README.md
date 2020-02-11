@@ -16,6 +16,7 @@ Deben colocarse las variables de entorno\n
 * MOSS_DIR -> A donde esten guardados los trabajos de los alumnos
 * junit -> A java/junit.jar (Valido para JUNIT 4) 
 * hamcrest-> A java/hamcrest.jar (Valido para JUNIT 4)
+
 Cuando se establece una variable de entorno desde el shell utilizando el comando de exportación, su existencia finaliza cuando finalizan las sesiones del usuario. Esto es problemático cuando necesitamos que la variable persista en las sesiones. Para hacer que un entorno sea persistente para el entorno de un usuario, exportamos la variable desde el script de perfil del usuario.
 
 ```bash
@@ -23,6 +24,7 @@ vi ~/.bash_profile
 export VAR=/path/to/file
 ```
 Guardar cambios.
+
 Agregar la variable de entorno solo al perfil bash de un usuario no lo exportará automáticamente. Sin embargo, la variable se exportará la próxima vez que el usuario inicie sesión.
 
 Para aplicar inmediatamente todos los cambios a bash_profile, use el comando de origen.
