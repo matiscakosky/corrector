@@ -6,6 +6,10 @@ El corrector recibe una entrega por mail con un formato esperado y descarga los 
 El programa corre con python 3.6 o superior.
 Deben instalarse varias librerías. Algunas de ellas:
 
+## Instalar pip3
+``` sudo apt install python3-pip```
+
+
 #### Variables de entorno
 Deben colocarse las variables de entorno\n
 SKEL_DIR -> A donde esten los trabajos practicos y sus pruebas 
