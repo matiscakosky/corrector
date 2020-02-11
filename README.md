@@ -2,15 +2,13 @@
 El corrector recibe una entrega por mail con un formato esperado y descarga los archivos en un path especifico. Ejecuta un archivo de pruebas y devuelve una respuesta al alumno. Actualiza una planilla de spreadsheet y sube la entrega a un repositorio de github.
 
 
-## Instalacion
-El programa corre con python 3.6 o superior.
-Deben instalarse varias librerías. Algunas de ellas:
-
-## Instalar pip3
+## Dependendencias y pre-condiciones
+El programa corre con python 3.6 o superior. Para poder comenzar su instalación previamente se debe contar con las siguientes condiciones.
+### Instalar pip3
 ``` sudo apt install python3-pip```
 
 
-#### Variables de entorno
+### Variables de entorno
 Deben colocarse las variables de entorno\n
 * SKEL_DIR -> A donde esten los trabajos practicos y sus pruebas 
 * MOSS_DIR -> A donde esten guardados los trabajos de los alumnos
