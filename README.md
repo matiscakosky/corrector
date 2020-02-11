@@ -45,7 +45,7 @@ pip3 install gspread
 ```bash
 pip3 install gitpython
 ```
-### De no tener instalada la librería dateutil
+### De no tener instalada dateutil
 ```bash
 pip3 install python-dateutil
 ```
