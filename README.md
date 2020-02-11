@@ -20,10 +20,7 @@ hamcrest-> A java/hamcrest.jar (Valido para JUNIT 4)
 
 ### Java y Junit
 ```bash
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt update
-sudo apt install oracle-java8-installer
-sudo apt install oracle-java8-set-default
+sudo apt install default-jdk 
 javac -version
 ```
 
