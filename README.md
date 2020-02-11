@@ -85,17 +85,22 @@ python3 corrector.py --noauth_local_webserver
 ## Anexos
 ### Ejecución por SSH del servidor AWS
 ### Terminal de AWS sin colores (Ubuntu 18 LTS)
-Si la terminal que se ejecuta desde ubuntu por SSH no tiene colores, se debe descomentar *force_color_prompt=yes* en el archivo *~/.bashrc*
+Si la terminal que se ejecuta desde ubuntu por SSH no tiene colores, se debe abrir el bash_profile.
 ```bash
 vi ~/.bashrc
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-force_color_prompt=yes
+```
+Posteriormente agregar estas lineas.
+```bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+        . "$HOME/.bashrc"
+    fi
+fi
 ```
 Luego
 ```bash
 source ~/.bashrc
 ```
-Y ¡Voilà! Aparecen los colores
+Y ¡Voilà! Aparecen los colores. Y no será necesario ejecutar el bash cada vez que se inicie una sesión SSH
 
