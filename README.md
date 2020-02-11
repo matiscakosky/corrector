@@ -21,7 +21,11 @@ Cuando se establece una variable de entorno desde el shell utilizando el comando
 
 ```bash
 vi ~/.bash_profile
-export VAR=/path/to/file
+export junit=/path/to/java/junit.jar
+export hamcrest=/path/to/java/hamcrest.jar
+export SKEL_DIR=/path/to/SKEL_TP
+export MOSS_DIR=/path/to/moss
+
 ```
 Guardar cambios.
 
