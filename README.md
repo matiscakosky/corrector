@@ -83,7 +83,11 @@ Si se encuentra instalando la aplicación desde algún servidor web o un bash qu
 ```bash
 python3 corrector.py --noauth_local_webserver
 ```
-
+### Agregar el repositorio de alumnos
+Se debe agregar un sub-repositorio dentro del original, en el directorio /corrector/moss donde se guardan los trabajos de los alumnos para ellos (el punto es para indicar que no es necesario la project folder)
+```bash
+git clone https://github.com/matiscakosky/tps_alumnos .
+```
 
 ## Anexos
 ### Ejecución por SSH del servidor AWS
