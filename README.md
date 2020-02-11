@@ -7,6 +7,8 @@ El programa corre con python 3.6 o superior. Para poder comenzar su instalación
 ### Instalar pip3
 ``` sudo apt install python3-pip```
 
+### Clonar el repositorio con el código del sistema
+``` git clone https://github.com/matiscakosky/corrector```
 
 ### Variables de entorno
 Deben colocarse las variables de entorno\n
@@ -62,4 +64,12 @@ pip3 install gitpython
 ```bash
 pip3 install python-dateutil
 ```
+
+## Instalación
+Una vez finalizadas todas las instalaciones previas se procede con las autenticaciones con las API's del sistema
+
+### Correr el corrector la primera vez
+Se pedirá la autenticación con la API de Gmail
+
+
 
