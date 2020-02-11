@@ -69,7 +69,17 @@ pip3 install python-dateutil
 Una vez finalizadas todas las instalaciones previas se procede con las autenticaciones con las API's del sistema
 
 ### Correr el corrector la primera vez
-Se pedirá la autenticación con la API de Gmail
+Escribir el comando de ejecución del script principal del corrector
+```bash
+python3 corrector.py
+```
+
+Se pedirá la autenticación con la API de Gmail. La misma solicitará que abra el browser para pegar un link que brindará la API.
+
+Si se encuentra instalando la aplicación desde algún servidor web o un bash que no posee browser correr de nuevo el corrector con el siguiente parametro 
+```bash
+python3 corrector.py --noauth_local_webserver
+```
 
 
 
