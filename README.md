@@ -41,7 +41,6 @@ source ~ /.bash_profile
 sudo apt install default-jdk 
 javac -version
 ```
-
 ### API de Gmail
 Si no se tiene instalado pip3, instalarlo previamente 
 ```bash
@@ -49,17 +48,21 @@ sudo apt install pip3
 pip3 install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 pip3 install --upgrade oauth2client 
 ```
-
 ### API de SpreadSheets
 ```bash
 pip3 install gspread
 ```
-
-
 ### API de git
 ```bash
 pip3 install gitpython
 ```
+#### Uso de git
+Para el uso del repo de alumnos, de manera automatica es necesario que el server cuente con las credenciale de acceso. Para ello
+```bash
+git config --global user.name reponame
+git config --global user.password repopass
+```
+
 ### De no tener instalada dateutil
 ```bash
 pip3 install python-dateutil
