@@ -11,7 +11,7 @@ El programa corre con python 3.6 o superior. Para poder comenzar su instalación
 ``` git clone https://github.com/matiscakosky/corrector```
 
 ### Variables de entorno
-Deben colocarse las variables de entorno\n
+Deben colocarse las variables de entorno
 * SKEL_DIR -> A donde esten los trabajos practicos y sus pruebas 
 * MOSS_DIR -> A donde esten guardados los trabajos de los alumnos
 * junit -> A java/junit.jar (Valido para JUNIT 4) 
