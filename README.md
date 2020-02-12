@@ -96,10 +96,7 @@ Si bien parece algo sencillo, es una de las partes mas complicadas de la instala
 El crontab tiene varios problemas con las rutas relativas, y el reconocimiento de variables de entorno. Por lo que para ejecutar el corrector, en Ubuntu 18 LTS. La mejor opción es hacer un script de bash que funcione como wrapper hacia el script principal del corrector. (Anteriormente con el servidor de Ubuntu 16, esto no era necesario.). En ningun momento se pueden utilizar atajos, siempre hay que poner las rutas completas a cualquier directorio o archivo que se quiera acceder.
 Por ejemplo:
  * Para acceder a python no alcanza con escribir python3 sino que se debe ejecutar mediante /usr/bin/python3.6
- *
-
-
-
+ 
 El wrapper es llamado *auto_execute.sh*
 ```bash
 #!/usr/bin/env bash
