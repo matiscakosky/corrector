@@ -120,3 +120,12 @@ source ~/.bashrc
 ```
 Y ¡Voilà! Aparecen los colores. Y no será necesario ejecutar el bash cada vez que se inicie una sesión SSH
 
+### Librería de memory_profiler
+Es un módulo de Python para monitorear el consumo de memoria de un proceso, así como el análisis línea por línea del consumo de memoria para los programas de Python. Se utiliza para distintos trabajos en los que importa el consumo de memoria.
+```bash
+pip3 install -U memory_profiler
+```
+
+
+
+
