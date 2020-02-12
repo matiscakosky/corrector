@@ -89,6 +89,41 @@ Se debe agregar un sub-repositorio dentro del original, en el directorio /correc
 git clone https://github.com/matiscakosky/tps_alumnos .
 ```
 
+
+### Ejecutar el corrector desde crontab
+Si bien parece algo sencillo, es una de las partes mas complicadas de la instalación del corrector, es justamente la parte en la que el mismo se ejecuta de manera automatica y revisa si hay entregas.
+
+El crontab tiene varios problemas con las rutas relativas, y el reconocimiento de variables de entorno. Por lo que para ejecutar el corrector, en Ubuntu 18 LTS. La mejor opción es hacer un script de bash que funcione como wrapper hacia el script principal del corrector. (Anteriormente con el servidor de Ubuntu 16, esto no era necesario.). En ningun momento se pueden utilizar atajos, siempre hay que poner las rutas completas a cualquier directorio o archivo que se quiera acceder.
+Por ejemplo:
+ * Para acceder a python no alcanza con escribir python3 sino que se debe ejecutar mediante /usr/bin/python3.6
+ *
+
+
+
+El wrapper es llamado *auto_execute.sh*
+```bash
+#!/usr/bin/env bash
+source $HOME/.bash_profile
+cd /home/ubuntu/corrector/scripts && /usr/bin/python3.6 /home/ubuntu/corrector/scripts/corrector.py
+```
+El archivo de crontab al cual se accede con:
+```bash
+crontab -e 
+```
+(El -e indica la edición)
+
+Contiene:
+```bash
+* * * * * /home/ubuntu/auto_execute.sh > /home/ubuntu/cronstatus.txt 2>&1
+* * * * * sleep 15;/home/ubuntu/auto_execute.sh > /home/ubuntu/cronstatus.txt 2>&1
+* * * * * sleep 30;/home/ubuntu/auto_execute.sh > /home/ubuntu/cronstatus.txt 2>&1
+* * * * * sleep 45;/home/ubuntu/auto_execute.sh > /home/ubuntu/cronstatus.txt 2>&1
+```
+Los astericos indican que la operacion debe hacerse a cada minuto, cada hora, cada dia y cada semana.
+El comado sleep es para poder manejarse entre los segundos, luego la ejecución del bash.
+Algo interesante es que la última sentencia guarda el resultado del bash en el archivo *cronstatus.txt* que resulta una buena forma de debuggear el programa cuando se corre desde crontab, aunque no es necesario para su ejecución.
+
+
 ## Anexos
 ### Ejecución por SSH del servidor AWS
 Requisitos:
@@ -119,6 +154,7 @@ Luego
 source ~/.bashrc
 ```
 Y ¡Voilà! Aparecen los colores. Y no será necesario ejecutar el bash cada vez que se inicie una sesión SSH
+
 
 ### Librería de memory_profiler
 Es un módulo de Python para monitorear el consumo de memoria de un proceso, así como el análisis línea por línea del consumo de memoria para los programas de Python. Se utiliza para distintos trabajos en los que importa el consumo de memoria.
