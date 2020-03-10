@@ -59,9 +59,16 @@ pip3 install gitpython
 #### Uso de git
 Para el uso del repo de alumnos, de manera automatica es necesario que el server cuente con las credenciale de acceso. Para ello
 ```bash
-git config --global user.name reponame
-git config --global user.password repopass
+git config --global credential.helper store
 ```
+Luego
+```bash
+git pull
+```
+Y las credenciales quedarán almacenadas, si se cambia la password, esto no va a funcionar más.
+Por lo que tendremos que volver a correr el pull y ahi se va a volver a guardar
+
+IMPORTANTE: ¡Utilizar solo esto en computadora/servidor personal! Debido a que las credenciales se guardan en el disco, sin ningún tipo de encriptación, en ```~/.git-credentials```
 
 ### De no tener instalada dateutil
 ```bash
