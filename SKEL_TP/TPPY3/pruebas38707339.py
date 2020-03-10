@@ -194,7 +194,7 @@ def measure_mem(func):
     gc.collect()
     process_usage = memory_usage(max_usage=True)
     gc.collect()
-    usage = memory_usage(func, 0.005, max_usage=True)[0]
+    usage = memory_usage(func, 0.005, max_usage=True)
     gc.collect()
     return usage - process_usage 
 
