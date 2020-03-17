@@ -55,7 +55,7 @@ ARCHIVO_INEXISTENTE = "No se encontro ningun archivo comprimido de formato esper
 ZIP_DANIADO = "El archivo comprimido se encuentra dañado, no es tenido en cuenta. Por favor reenviar un archivo que funcione. Se recomienda comprimir con el comrpesor online https://archivo.online-convert.com/es/convertir-a-zip"
 MENSAJE_ADVERTENCIA= "ADVERTENCIA: El trabjo práctico recientemente enviado no fue entregado dentro del plazo correspondiente, el trabajo se corregirá de todas maneras. La nota del mismo esta sujeta a este retraso del TP"
 MAL_REGISTRO="Un problema surgio con su registro/entrega. Revisar si llenó correctamente los campos del registro/entrega en el asunto del mail y vuelvalo a intentar. Su registro/entrega no fue tenida en cuenta"
-BIENVENIDA="Registro completado con éxito - Bienvenido a Taller de desarrollo de sistemas - TIC ORT Argentina"
+BIENVENIDA="Registro completado con éxito - Bienvenido a Desarrollo de aplicaciones informaticas - TIC ORT Argentina"
 ALUMNO_INEXSISTENTE="ERROR: No se logro identificar al alumno revise si escribio bien su DNI"
 EMAIL_INCORRECTO = "El email remitente y el registrado no coinciden, enviar la entrega desde el mail que esta registrado. Enviar un trabajo de un mail no correcto se considera una falta grave y la misma se pondera como COPIA, ante dudas consultar al docente"
 
@@ -204,7 +204,7 @@ def manejar_consultas(wks,msg,id_tp):
             sexto=subj_words[3]
             dni = subj_words[4]
             registrar_alumno(wks,nombre=nombre,sexto=sexto,dni=dni,fecha=obtener_fecha_mensaje(msg["Date"]),email=msg["From"])
-            responder(msg,BIENVENIDA)
+            responder(msg,BIENVENIDA + '\n' + "Apellido y nombre: " + nombre.upper() + '\n' + "5to: " + sexto.upper() + '\n' + "DNI: " + dni)
         except IndexError:
             raise ErrorEntrega(MAL_REGISTRO)
     elif id_tp == "NOTAS":
