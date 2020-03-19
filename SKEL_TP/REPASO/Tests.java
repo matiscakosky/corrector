@@ -257,7 +257,7 @@ public class Tests {
 			String resultado = r.deQueSignoSoy("Octubre", i);
 			if (!resultado.equals(test)) finalAnsAns = false;
 		}
-		for (int i = 1; i < 23; i++) {
+		for (int i = 1; i < 22; i++) {
 			String resultado = r.deQueSignoSoy("Noviembre", i);
 			if (!resultado.equals(test)) finalAnsAns = false;
 		}
@@ -269,7 +269,7 @@ public class Tests {
 		Repaso r = new Repaso();
 		boolean finalAnsAns = true;
 		String test = "Sagitario";
-		for (int i = 23; i < 31; i++) {
+		for (int i = 22; i < 31; i++) {
 			String resultado = r.deQueSignoSoy("Noviembre", i);
 			if (!resultado.equals(test))
 				finalAnsAns = false;
