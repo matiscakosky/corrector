@@ -117,7 +117,7 @@ public class Tests {
 			if (desapilado != i) condition = false;
 		}
 		
-		print_test("Creo una pila pequeña y apilo todos los elementos al maximo, desapilo todos y compruebo el orden", condition);
+		print_test("Creo una pila chica y apilo todos los elementos al maximo, desapilo todos y compruebo el orden", condition);
 	}
 	
 	@Test
@@ -136,13 +136,13 @@ public class Tests {
 			p.desapilar();
 		}
 		condition = condition && p.longitud() == 0;
-		print_test("Creo una pila pequeña y apilo todos los elementos al maximo, desapilo todos, compruebo que la longitud sea correcta en cada iteracion y vacia al final", condition);
+		print_test("Creo una pila chica y apilo todos los elementos al maximo, desapilo todos, compruebo que la longitud sea correcta en cada iteracion y vacia al final", condition);
 	}
 	
 	
 	@Test
 	public void test13creoUnaPilaApiloVolumenYComprueboMientrasDesapiloTodos(){
-		int MAX= 5000;
+		int MAX= 50;
 		Pila p = new Pila(MAX);
 		boolean condition = true;
 		for (int i = 0; i < MAX; i++) {
@@ -159,7 +159,7 @@ public class Tests {
 	
 	@Test
 	public void test14creoUnaPilaApiloVolumenYComprueboLongitud(){
-		int MAX= 5000;
+		int MAX= 50;
 		Pila p = new Pila(MAX);
 		boolean condition = p.longitud()==0;
 		for (int i = 0; i < MAX; i++) {
@@ -233,7 +233,7 @@ public class Tests {
 	
 	@Test
 	public void test19creoUnaPilaApiloVolumenYComprueboVaciaConElTope(){
-		int MAX= 5000;
+		int MAX= 50;
 		Pila p = new Pila(MAX);
 		for (int i = 0; i < MAX; i++) {
 			p.apilar(i);			
@@ -282,7 +282,7 @@ public class Tests {
 	
 	@Test
 	public void test24contieneConVolumen(){
-		int MAX= 50000;
+		int MAX= 500;
 		Pila p = new Pila(MAX);
 		for (int i = 1; i <= MAX; i++) {
 			p.apilar(i);			
