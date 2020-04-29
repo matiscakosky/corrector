@@ -1,7 +1,7 @@
 # Corrector automático de trabajos prácticos y exámenes para ORT
 El corrector recibe una entrega por mail con un formato esperado y descarga los archivos en un path especifico. Ejecuta un archivo de pruebas y devuelve una respuesta al alumno. Actualiza una planilla de spreadsheet y sube la entrega a un repositorio de github.
 
-
+Compruebo que no se rompa con ssh
 ## Dependendencias y pre-condiciones
 El programa corre con python 3.6 o superior. Para poder comenzar su instalación previamente se debe contar con las siguientes condiciones.
 ### Instalar pip3
