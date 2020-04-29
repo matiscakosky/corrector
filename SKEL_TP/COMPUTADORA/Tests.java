@@ -1,4 +1,4 @@
-import org.junit.FixMethodOrder;
+	import org.junit.FixMethodOrder;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.runners.MethodSorters;
@@ -91,7 +91,7 @@ public class Tests {
 		Computadora c = new Computadora("Ubuntu",1,10);
 		c.encenderApagar();
 		boolean succes = c.instalarPrograma("Eclipse",10,1);
-		print_test("Instalo un programa sin capacidad suficente de almacenamiento en la Computadora", succes);
+		print_test("Instalo un programa sin capacidad suficente de almacenamiento en la Computadora", !succes);
 	
 		
 	}
