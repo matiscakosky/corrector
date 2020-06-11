@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
     Script principal de procesamiento de la entrega
-    
+
     Flujo principal del corrector:
         - Revisa que haya una entrega en la casilla de mensajes de tddentregas@gmail.com
         - Autentica en Google Drive y Google Spreadsheets y genera un objeto token para poder acceder y modificar las planillas
@@ -11,7 +11,7 @@
         - Si hay un TP genera un objeto corrector de Java o Python según reconozca en el asunto del mail
         - Revisa las credenciales del TP, si las mismas son validas continua con la correccion, sino la limita a una advertencia o la cancelacion del mismo.
         - El objeto corrector realiza su correcion
-        - Se actualiza la planilla 
+        - Se actualiza la planilla
         - Se genera un objeto Moss que una vez aprobado el TP guarda el contenido del archivo comprimido en un path y sube todos los scripts a un repositorio en Github.
 """
 
@@ -51,7 +51,7 @@ MAX_ZIP_SIZE = 1024 ** 2
 #Mensajes de error
 MAL_ASUNTO = "No se encontro ninguna entrega en el asunto del mail, por favor reenviar con el formato correspondiente y el nombre de entrega correcto"
 MAL_TAMANIO = "Archivo supera el Limite permitido de tamaño de {} bytes".format(MAX_ZIP_SIZE)
-ARCHIVO_INEXISTENTE = "No se encontro ningun archivo comprimido de formato esperado adjunto en el mail enviado, por favor adjunte su entrega" 
+ARCHIVO_INEXISTENTE = "No se encontro ningun archivo comprimido de formato esperado adjunto en el mail enviado, por favor adjunte su entrega"
 ZIP_DANIADO = "El archivo comprimido se encuentra dañado, no es tenido en cuenta. Por favor reenviar un archivo que funcione. Se recomienda comprimir con el comrpesor online https://archivo.online-convert.com/es/convertir-a-zip"
 MENSAJE_ADVERTENCIA= "ADVERTENCIA: El trabjo práctico recientemente enviado no fue entregado dentro del plazo correspondiente, el trabajo se corregirá de todas maneras. La nota del mismo esta sujeta a este retraso del TP"
 MAL_REGISTRO="Un problema surgio con su registro/entrega. Revisar si llenó correctamente los campos del registro/entrega en el asunto del mail y vuelvalo a intentar. Su registro/entrega no fue tenida en cuenta"
@@ -64,7 +64,7 @@ EMAIL_INCORRECTO = "El email remitente y el registrado no coinciden, enviar la e
 JAVA_TPS=["FRACCION","VECTOR","MAZO","FIUGRA","POLIGONO","VEHICULO","COCINA","JAVA1A","JAVA1B","JAVA1C","JAVA1D"]
 PY_TPS=["TPPY1","TPPY2","TPPY3","TPPY4","TPPY5","LISTA","PY3A","PY3B","PY3C","PY3D","PYN3A","PYN3B","PYN3C","PYN3D"]
 CONSULTAS=["NOTAS","REGISTRAR"]
-NO_REGISTRABLES = ["JAVA1A","JAVA1B","JAVA1C","JAVA1D","JAVARA","JAVA2A","JAVA2B","JAVA2C","JAVA2D"]
+NO_REGISTRABLES = ["JAVA1A","JAVA1B","JAVA1C","JAVA1D","JAVARA","JAVA2A","JAVA2B","JAVA2C","JAVA2D","MAZO","ELECTRODOMESTICO"]
 
 #Notas
 APROBO="OK"
@@ -72,61 +72,55 @@ DESAPROBO="ERROR"
 TARDE= "TARDE"
 EMAIL_FALSO="COPIA"
 
-def escuchar():
-    while(True):
-        main()
-        sleep(3)
-        
-
 def main():
     """ Funcion principal"""
     id_tp=None
     id_alumno=None
     try:
         msg = revisar() #Conecto Con la API de Gmail
-        wks = autenticar() # Concecto con la API de Drive y Spreadsheet   
+        wks = autenticar() # Concecto con la API de Drive y Spreadsheet
         id_tp = buscar_tp(msg["Subject"])
-        
+
         if id_tp in CONSULTAS:
             manejar_consultas(wks,msg,id_tp)
             return
-            
-            
+
+
         id_alumno = buscar_alumno(wks,msg["Subject"])
         #verificar_email(msg,wks,id_alumno)
         zip_adjunto = convertir_a_zip(takeAttachment(msg))
         skel_dir = SKEL_DIR / id_tp
         corrector=cargar_correctores(id_tp,str(skel_dir),zip_adjunto)
         print("llego una entrega bien")
-        
+
         nota=APROBO
         limitador = checkear_vencimiento_tp(skel_dir,obtener_fecha_mensaje(msg["Date"]))
 
         if limitador.advertencia:
             responder(msg,MENSAJE_ADVERTENCIA) #fijarse de empalmarlo con el otro mail
             nota=TARDE
-        
+
         output=corrector.corregir()
-        
+
         responder(msg, "TODO OK: {}".format(output))
-        
+
         #No registrar entregas de examenes viejos
         if(id_tp in NO_REGISTRABLES):
             return
-        
-        
+
+
         registrar_entrega(wks,id_tp, id_alumno,nota)
-        
+
         moss = Moss(id_tp, buscar_nombre(wks,id_alumno), obtener_fecha_mensaje(msg["Date"]), zip_adjunto)
         moss.guardar_directorio()
         moss.subir()
-   
+
     except NoHayMensajesNuevos:
         print("No hay mensajes nuevos")
-    
+
     except AlumnoInexistente:
         responder(msg, ALUMNO_INEXSISTENTE)
-        
+
     except TrabajoVencido as err:
         responder(msg, "TRABAJO VENCIDO: {}".format(err))
 
@@ -134,35 +128,35 @@ def main():
         registrar_entrega(wks,id_tp, id_alumno,EMAIL_FALSO)
         responder(msg,"EMAIL INCORRECTO: {}".format(err))
         informar_posible_copia(msg,"Se ha detectado que {} a enviado un mail desde la casilla {}".format(buscar_nombre(wks,id_alumno),msg["From"]))
-        
+
     except zipfile.BadZipFile:
         responder(msg, "ERROR: {}".format(ZIP_DANIADO))
-    
+
     except ErrorEntrega as err:
         if id_tp and id_alumno:
             if id_tp not in NO_REGISTRABLES:
                 registrar_entrega(wks,id_tp, id_alumno,DESAPROBO)
         responder(msg, "ERROR: {}".format(err))
-        
+
     except RuntimeError as err:
         responder(msg, "ERROR: Comunicarse con el docente para solucionarlo {}".format(err))
 
 def buscar_tp(subject):
-    """ 
-        Recibe el asunto del mail en forma de string. Itera por el directorio de SKEL_DIR y busca si alguna palabra 
-        del asunto coincide con algun sub-directorio ubicado en SKEL_DIR. 
+    """
+        Recibe el asunto del mail en forma de string. Itera por el directorio de SKEL_DIR y busca si alguna palabra
+        del asunto coincide con algun sub-directorio ubicado en SKEL_DIR.
         Las consultas tambien son reconocidas en este nivel, para eso deben tener su propio path dentro de SKEL_DIR para ser reconocidas, luego se hara la separacion correspondiente.
         Si lo encuentra devuelve el nombre del sub-directorio tal cual esta escrito en el path
         Si no lo encuentra lanza una excepcion de ErrorEntrega
-        
+
     """
     subj_words = [w.lower() for w in re.split(r"[^_\w]+", subject)]
     candidates = {p.name.lower(): p.name for p in SKEL_DIR.iterdir()}
-    
+
     for key in candidates:
         if key in subj_words:
             return candidates[key]
-    
+
     raise ErrorEntrega(MAL_ASUNTO)
 
 def convertir_a_zip(zip_bytes):
@@ -180,8 +174,8 @@ def checkear_vencimiento_tp(skel_dir, fechaEntrega):
     limitador = LimiteDeEntrega(skel_dir,fechaEntrega)
     limitador.confirmar_horario_entrega()
     return limitador
-    
-           
+
+
 def cargar_correctores(id_tp=None,skel_dir=None,zip_adjunto=None):
     """Devuelve un objeto corrector de java o python segun se haya reconocido anteriormente.
         Todas las propiedades del corrector son creadas, recibiendo el id_tp la ubicacion del tp en skel_dir y
@@ -190,11 +184,11 @@ def cargar_correctores(id_tp=None,skel_dir=None,zip_adjunto=None):
         return PyCorrector(id_tp=id_tp,skel_dir=skel_dir,zip_tp=zip_adjunto)
     else:
         return JavaCorrector4(id_tp=id_tp,skel_dir=skel_dir,zip_tp=zip_adjunto)
-    
+
 
 def manejar_consultas(wks,msg,id_tp):
     """Funcion encargada de manejar las consultas no relacionadas a corregir trabajos practicos.
-    La misma recibe el objeto msg de GMAIL para poder generar una respuesta dentro de la funcion que no sea la de los trabajos practicos 
+    La misma recibe el objeto msg de GMAIL para poder generar una respuesta dentro de la funcion que no sea la de los trabajos practicos
     y el toquen de SpreadSheets para poder leer/modificar la planilla. Tambien recibe el id_tp donde contiene en ella que consulta se hara."""
     if id_tp == "REGISTRAR":
         #El subject del mail de registro de la forma "REGISTRO - Apellido Nombre - A - DNI"
@@ -212,7 +206,7 @@ def manejar_consultas(wks,msg,id_tp):
         id_alumno = buscar_alumno(wks,msg["Subject"])
         respuesta = consulta_de_notas(wks,id_alumno)
         responder(msg, respuesta)
-        
+
 
 def buscar_alumno(wks,subject):
     """Recibe el token de spreadsheet y el asunto del mail en forma de string y reconoce si hay algun dni que coincida con los de la planilla, en cuyo caso lo devuelve
@@ -224,6 +218,6 @@ def buscar_alumno(wks,subject):
 def verificar_email(msg,wks,id_alumno):
     if (msg["From"] != buscar_email(wks,id_alumno)):
         raise EmailIncorrecto(EMAIL_INCORRECTO)
-        
+
 if __name__ == "__main__":
   main()
