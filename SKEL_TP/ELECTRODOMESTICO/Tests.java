@@ -459,7 +459,7 @@ public class Tests {
 
 	@Test
 	public void test38CreoUnLavarropasUsandoElConstructorReducido(){
-		Electrodomestico e = new Lava	rropas(200, 10);
+		Electrodomestico e = new Lavarropas(200, 10);
 		boolean condition = e.getPrecioBase() == 200 && e.getColor().equals("BLANCO") && e.getConsumoElectrico().equals("D") && e.getPeso() == 10 && e.getVoltaje() == 220 && ((Lavarropas) e).getCarga()==10;
 		print_test("Nuevo Lavarropas utilizando el constructor reducido", condition);
 
