@@ -17,9 +17,6 @@ import dateutil.parser as parser
 import time
 import datetime
 
-#Usuario gmai = tddentregas@gmail.com
-#Contraseña = tddautomatico
-
 #Define constants
 user_id =  'me'
 label_id_one = 'INBOX' #Etiqueta de bandeja a fetchear
