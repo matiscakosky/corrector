@@ -1,4 +1,4 @@
-from pyn3c import *
+from py3b import *
 from py3b_wd import *
 from testing import show_test
 from ListaEnlazadaTest import Nodo as Nodo
@@ -20,9 +20,9 @@ def ejercicio1_test1():
     except Exception as err:
         error_by_except(s,err)
         return 0
-        
-    
-def ejercicio1_test2():    
+
+
+def ejercicio1_test2():
     s="Pruebo una matriz diagonal de 3x3"
     fallos = test.fails
     valor=.5
@@ -33,7 +33,7 @@ def ejercicio1_test2():
     except Exception as err:
         error_by_except(s,err)
         return 0
-        
+
 
 def ejercicio1_test3():
     s="Pruebo una matriz no diagonal de 3x3"
@@ -46,7 +46,7 @@ def ejercicio1_test3():
     except Exception as err:
         error_by_except(s,err)
         return 0
-           
+
 
 def ejercicio1_test4():
     s="Pruebo una matriz no diagonal de 2x2"
@@ -59,7 +59,7 @@ def ejercicio1_test4():
     except Exception as err:
         error_by_except(s,err)
         return 0
-    
+
 def ejercicio2_test1():
     s="Compruebo el diccionario con una frase de una sola palabra"
     valor=1
@@ -86,7 +86,7 @@ def ejercicio2_test2():
         return valor if (test.fails == fallos) else 0
     except Exception as err:
         error_by_except(s,err)
-        return 0        
+        return 0
 
 def ejercicio2_test3():
     s="Compruebo con una frase de palabras repetidas, las tiene que agregar siempre"
@@ -100,7 +100,7 @@ def ejercicio2_test3():
         return valor if (test.fails == fallos) else 0
     except Exception as err:
         error_by_except(s,err)
-        return 0        
+        return 0
 
 def no(a):
     return False
@@ -108,7 +108,7 @@ def si(a):
     return True
 def no_e(letra):
     return letra in "abcd"
-    
+
 def ejercicio3_test1():
     s = "Filtro un solo elemento, dejo la lista vacia"
     valor = 1
@@ -159,7 +159,7 @@ def ejercicio3_test3():
         for i in range(len(l)):
             if actual.v != l[i]: funciono=False
             actual=actual.next
-        
+
         test.print_test(s, funciono and check_list_integrity(nueva,len(l)))
         return valor if (test.fails == fallos) else 0
     except Exception as err:
@@ -184,7 +184,7 @@ def ejercicio3_test4():
         for i in range(len(l)):
             if actual.v != l[i]: funciono=False
             actual=actual.next
-        
+
         test.print_test(s, funciono and check_list_integrity(nueva,len(l)))
         return valor if (test.fails == fallos) else 0
     except Exception as err:
@@ -209,13 +209,13 @@ def ejercicio3_test5():
         for i in range(len(l)):
             if actual.v != l[i]: funciono=False
             actual=actual.next
-        
+
         test.print_test(s, funciono and check_list_integrity(nueva,len(l)))
         return valor if (test.fails == fallos) else 0
     except Exception as err:
         error_by_except(s, err)
         return 0
-    
+
 def check_list_integrity(linked_list, length):
   current = linked_list.prim
   index = 0
@@ -235,46 +235,46 @@ def error_by_except(s,err):
         traceback.print_exc()
 
 def main():
-    
+
     print("")
     print("Examen 3ero TIC 'B'- Python")
     print("")
-    nota = 0 
+    nota = 0
     print("Ejercicio 1 - matriz_diagonal (2 puntos)")
     nota += ejercicio1_test1()
     nota += ejercicio1_test2()
     nota += ejercicio1_test3()
     nota += ejercicio1_test4()
-    
-    
+
+
     print("")
-    print("Ejercicio 2 - empiezan_con (3 puntos)") 
- 
+    print("Ejercicio 2 - empiezan_con (3 puntos)")
+
     nota += ejercicio2_test1()
     nota += ejercicio2_test2()
     nota += ejercicio2_test3()
 
     print("")
     print("Ejercicio 3 - filtrar (5 puntos)")
-   
+
     nota += ejercicio3_test1()
     nota += ejercicio3_test2()
     nota += ejercicio3_test3()
     nota += ejercicio3_test4()
     nota += ejercicio3_test5()
-    
-    
+
+
     print("--------------")
     print("FIN DEL EXAMEN")
     print("--------------")
-    
+
     print("El resultado es ", nota)
     if(nota==10): print ("¡Felicitaciones!")
-    
+
     if test.fails != 0:
         raise Exception("ERROR: Hubo fallos " + str(test.fails) + " en los asserts del TP. Revisar")
 
-    return 
+    return
 
 if __name__ == "__main__":
   main()

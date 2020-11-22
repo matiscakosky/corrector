@@ -1,4 +1,4 @@
-from pyn3b import *
+from py3a import *
 from py3a_wd import *
 from testing import show_test
 from ListaEnlazadaTest import Nodo as Nodo
@@ -13,7 +13,7 @@ def ejercicio1_test1():
     s="Ordeno una lista chiquita, la lista al final queda ordenada inplace"
     fallos = test.fails
     valor=.5
-    l1=[1,214,41,415,6,467,764,246,4,7247,6,1356,764,84,-23,1]  
+    l1=[1,214,41,415,6,467,764,246,4,7247,6,1356,764,84,-23,1]
     l2=[1,214,41,415,6,467,764,246,4,7247,6,1356,764,84,-23,1]
     try:
         ordenar(l1)
@@ -22,14 +22,14 @@ def ejercicio1_test1():
     except Exception as err:
         error_by_except(s,err)
         return 0
-        
-    
+
+
 def ejercicio1_test2():
     s="Ordeno una lista chiquita, casi todos sus elementos estan repetidos"
     fallos = test.fails
     valor=.5
-    l1=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,-23,1]  
-    l2=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,-23,1]  
+    l1=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,-23,1]
+    l2=[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,1,1,1,1,1,1,-23,1]
     try:
         ordenar(l1)
         test.print_test(s, l1==sorted(l2))
@@ -37,7 +37,7 @@ def ejercicio1_test2():
     except Exception as err:
         error_by_except(s,err)
         return 0
-        
+
 
 def ejercicio1_test3():
     s="Ordeno una lista de 100 elementos aleatorios entre -50000 y 50000"
@@ -56,13 +56,13 @@ def ejercicio1_test3():
     except Exception as err:
         error_by_except(s,err)
         return 0
-        
+
 
 def ejercicio1_test4():
     s="Ordeno una lista de strings"
     valor=.5
     fallos = test.fails
-    l1=["mati","hola","que","tal","como","va"]  
+    l1=["mati","hola","que","tal","como","va"]
     l2=["mati","hola","que","tal","como","va"]
     try:
         ordenar(l1)
@@ -71,7 +71,7 @@ def ejercicio1_test4():
     except Exception as err:
         error_by_except(s,err)
         return 0
-    
+
 def ejercicio2_test1():
     s="Pruebo 3 amigos con mucha disponibidad"
     valor=1
@@ -100,7 +100,7 @@ def ejercicio2_test2():
         error_by_except(s,err)
         return 0
 
-        
+
 def ejercicio2_test3():
     s="Pruebo muchos amigos que no se pueden juntar todos nunca"
     valor=1
@@ -114,7 +114,7 @@ def ejercicio2_test3():
     except Exception as err:
         error_by_except(s,err)
         return 0
-    
+
 def ejercicio3_test1():
     s = "Lista de un unico elemento, duplico ese"
     valor = 1
@@ -262,46 +262,46 @@ def error_by_except(s,err):
         traceback.print_exc()
 
 def main():
-    
+
     print("")
     print("Examen 3ero TIC 'A'- Python")
     print("")
-    nota = 0 
+    nota = 0
     print("Ejercicio 1 - ordenar (2 puntos)")
     nota += ejercicio1_test1()
     nota += ejercicio1_test2()
     nota += ejercicio1_test3()
     nota += ejercicio1_test4()
-    
-    
+
+
     print("")
-    print("Ejercicio 2 - organizar (3 puntos)") 
- 
+    print("Ejercicio 2 - organizar (3 puntos)")
+
     nota += ejercicio2_test1()
     nota += ejercicio2_test2()
     nota += ejercicio2_test3()
 
     print("")
     print("Ejercicio 3 - duplicar (5 puntos)")
-   
+
     nota += ejercicio3_test1()
     nota += ejercicio3_test2()
     nota += ejercicio3_test3()
     nota += ejercicio3_test4()
     nota += ejercicio3_test5()
-    
-    
+
+
     print("--------------")
     print("FIN DEL EXAMEN")
     print("--------------")
-    
+
     print("El resultado es ", nota)
     if(nota==10): print ("¡Felicitaciones!")
-    
+
     if test.fails != 0:
         raise Exception("ERROR: Hubo fallos " + str(test.fails) + " en los asserts del TP. Revisar")
 
-    return 
+    return
 
 if __name__ == "__main__":
   main()
